@@ -1,2 +1,3 @@
 # Bitirme
-Utiyo Btbs 4.Sınıf Bitirme Ödevi 
+Utiyo Btbs 4.Sınıf Bitirme Projesi
+
