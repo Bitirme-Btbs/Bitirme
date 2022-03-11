@@ -1,0 +1,41 @@
+﻿@using Bitirme.Models
+@model Maliyet
+@{
+    ViewBag.Title = "Create";
+}
+<form method="post" class="form-group">
+    <div>
+        <label>Giderler</label>
+        @Html.DropDownListFor(ba => ba.Gider.GiderId, (List<SelectListItem>)ViewBag.Mgider, new { @class = "form-control" })
+
+    </div>
+    <div>
+
+
+        <label>Kaynak Maliyet Etkenleri</label>
+        @Html.DropDownListFor(ba => ba.KaynakMaliyetEtken.KMEId, (List<SelectListItem>)ViewBag.Mkme, new { @class = "form-control" })
+
+    </div>
+    <div>
+
+
+        <label>Faaliyet</label>
+        @Html.DropDownListFor(ba => ba.Faaliyet.FaaliyetId, (List<SelectListItem>)ViewBag.Mfaaliyet, new { @class = "form-control" })
+
+    </div>
+
+    <div>
+        <label>Onay</label>
+        @Html.DropDownListFor(ba => ba.Onay, new List<SelectListItem>() { new SelectListItem() { Text = "Aktif", Value = "True" }, new SelectListItem() { Text = "Pasif", Value = "False" } }, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>Adet</label>
+        <input type="number" name="Adet" class="form-control" placeholder="Adet" />
+    </div>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Ekle</button>
+    </div>
+</form>
+
+

@@ -1,0 +1,26 @@
+﻿@using Bitirme.Models
+@model List<Faaliyet>
+@{
+    ViewBag.Title = "Index";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Faaliyet Ad</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td> @item.FaaliyetAd </td>
+            <td>@Html.ActionLink("Sil Butonu", "Remove", new { id = item.FaaliyetId }, new { @class = "btn btn-warning" })</td>
+            <td>@Html.ActionLink("Güncelleme Butonu", "Details", new { id = item.FaaliyetId }, new { @class = "btn btn-success" })</td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Yeni Faaliyet Ekle", "Create", "Faaliyet")

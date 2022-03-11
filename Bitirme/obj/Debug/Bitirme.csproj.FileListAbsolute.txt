@@ -156,3 +156,7 @@ C:\Users\MustafaBulut\source\repos\BitirmeProjesi\Bitirme\obj\Debug\Bitirme.cspr
 C:\Users\MustafaBulut\source\repos\BitirmeProjesi\Bitirme\obj\Debug\Bitirme.csproj.CopyComplete
 C:\Users\MustafaBulut\source\repos\BitirmeProjesi\Bitirme\obj\Debug\Bitirme.dll
 C:\Users\MustafaBulut\source\repos\BitirmeProjesi\Bitirme\obj\Debug\Bitirme.pdb
+C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\EntityFramework.dll
+C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\EntityFramework.SqlServer.dll
+C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\EntityFramework.xml
+C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\EntityFramework.SqlServer.xml

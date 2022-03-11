@@ -1,0 +1,15 @@
+﻿@using Bitirme.Models
+@model KaynakMaliyetEtken
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<form class=" form-group" method="post">
+    <div>  @Html.Label("KME Ad") @Html.TextBoxFor(ba => ba.KMEAd, new { @class = "form-control" })</div>
+    
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Kaynak Maliyet Ekle</button>
+    </div>
+</form>
+

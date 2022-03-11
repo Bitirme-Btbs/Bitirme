@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BitirmeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Faaliyet">
+    <Key>
+      <PropertyRef Name="FaaliyetId" />
+    </Key>
+    <Property Name="FaaliyetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
+  </EntityType>
+  <EntityType Name="Gider">
+    <Key>
+      <PropertyRef Name="GiderId" />
+    </Key>
+    <Property Name="GiderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HesapKodu" Type="varchar" MaxLength="90" />
+    <Property Name="HesapAd" Type="varchar" MaxLength="90" />
+    <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="KaynakMaliyetEtken">
+    <Key>
+      <PropertyRef Name="KMEId" />
+    </Key>
+    <Property Name="KMEId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KMEAd" Type="varchar" MaxLength="90" />
+    <Property Name="TotalAdet" Type="int" />
+  </EntityType>
+  <EntityType Name="Maliyet">
+    <Key>
+      <PropertyRef Name="MaliyetId" />
+    </Key>
+    <Property Name="MaliyetId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GiderId" Type="int" />
+    <Property Name="FaaliyetId" Type="int" />
+    <Property Name="KMEId" Type="int" />
+    <Property Name="Onay" Type="bit" />
+    <Property Name="Adet" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.GenelTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GenelTutar">
+    <Key>
+      <PropertyRef Name="MaliyetId" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="Expr2" />
+    </Key>
+    <Property Name="geneltutar" Type="decimal" Precision="38" Scale="6" />
+    <Property Name="MaliyetId" Type="int" Nullable="false" />
+    <Property Name="Oran" Type="decimal" Precision="38" Scale="20" />
+    <Property Name="Expr1" Type="int" Nullable="false" />
+    <Property Name="GiderId" Type="int" />
+    <Property Name="FaaliyetId" Type="int" />
+    <Property Name="KMEId" Type="int" />
+    <Property Name="Onay" Type="bit" />
+    <Property Name="Adet" Type="int" />
+    <Property Name="Expr2" Type="int" Nullable="false" />
+    <Property Name="HesapKodu" Type="varchar" MaxLength="90" />
+    <Property Name="HesapAd" Type="varchar" MaxLength="90" />
+    <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Oran">
+    <Key>
+      <PropertyRef Name="MaliyetId" />
+    </Key>
+    <Property Name="MaliyetId" Type="int" Nullable="false" />
+    <Property Name="Oran" Type="decimal" Precision="38" Scale="20" />
+  </EntityType>
+  <Association Name="FK_Maliyet_Faaliyet">
+    <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
+    <End Role="Maliyet" Type="Self.Maliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faaliyet">
+        <PropertyRef Name="FaaliyetId" />
+      </Principal>
+      <Dependent Role="Maliyet">
+        <PropertyRef Name="FaaliyetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Maliyet_Gider">
+    <End Role="Gider" Type="Self.Gider" Multiplicity="0..1" />
+    <End Role="Maliyet" Type="Self.Maliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gider">
+        <PropertyRef Name="GiderId" />
+      </Principal>
+      <Dependent Role="Maliyet">
+        <PropertyRef Name="GiderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Maliyet_KaynakMaliyetEtken">
+    <End Role="KaynakMaliyetEtken" Type="Self.KaynakMaliyetEtken" Multiplicity="0..1" />
+    <End Role="Maliyet" Type="Self.Maliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KaynakMaliyetEtken">
+        <PropertyRef Name="KMEId" />
+      </Principal>
+      <Dependent Role="Maliyet">
+        <PropertyRef Name="KMEId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BitirmeModelStoreContainer">
+    <EntitySet Name="Faaliyet" EntityType="Self.Faaliyet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gider" EntityType="Self.Gider" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KaynakMaliyetEtken" EntityType="Self.KaynakMaliyetEtken" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Maliyet" EntityType="Self.Maliyet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GenelTutar" EntityType="Self.GenelTutar" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GenelTutar].[geneltutar] AS [geneltutar], 
+    [GenelTutar].[MaliyetId] AS [MaliyetId], 
+    [GenelTutar].[Oran] AS [Oran], 
+    [GenelTutar].[Expr1] AS [Expr1], 
+    [GenelTutar].[GiderId] AS [GiderId], 
+    [GenelTutar].[FaaliyetId] AS [FaaliyetId], 
+    [GenelTutar].[KMEId] AS [KMEId], 
+    [GenelTutar].[Onay] AS [Onay], 
+    [GenelTutar].[Adet] AS [Adet], 
+    [GenelTutar].[Expr2] AS [Expr2], 
+    [GenelTutar].[HesapKodu] AS [HesapKodu], 
+    [GenelTutar].[HesapAd] AS [HesapAd], 
+    [GenelTutar].[Tutar] AS [Tutar]
+    FROM [dbo].[GenelTutar] AS [GenelTutar]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Oran" EntityType="Self.Oran" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Oran].[MaliyetId] AS [MaliyetId], 
+    [Oran].[Oran] AS [Oran]
+    FROM [dbo].[Oran] AS [Oran]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Maliyet_Faaliyet" Association="Self.FK_Maliyet_Faaliyet">
+      <End Role="Faaliyet" EntitySet="Faaliyet" />
+      <End Role="Maliyet" EntitySet="Maliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Maliyet_Gider" Association="Self.FK_Maliyet_Gider">
+      <End Role="Gider" EntitySet="Gider" />
+      <End Role="Maliyet" EntitySet="Maliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Maliyet_KaynakMaliyetEtken" Association="Self.FK_Maliyet_KaynakMaliyetEtken">
+      <End Role="KaynakMaliyetEtken" EntitySet="KaynakMaliyetEtken" />
+      <End Role="Maliyet" EntitySet="Maliyet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,29 @@
+﻿@using Bitirme.Models
+@model List<Gider>
+@{
+    ViewBag.Title = "Index";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Hesap Kodu</th>
+            <th scope="col">Tutar</th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td> @item.HesapKodu @item.HesapAd </td>
+            <td> @item.Tutar </td>
+            <td>@Html.ActionLink("Sil Butonu", "Remove", new { id = item.GiderId }, new { @class = "btn btn-warning" })</td>
+            <td>@Html.ActionLink("Güncelleme Butonu", "Details", new { id = item.GiderId }, new { @class = "btn btn-success" })</td>
+
+        </tr>
+        }
+    </tbody>
+</table>
+@Html.ActionLink("Yeni Gider Ekle", "Create", "Gider")
+

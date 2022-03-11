@@ -1,0 +1,32 @@
+﻿@using Bitirme.Models
+@model List<GenelTutar>
+@{
+    ViewBag.Title = "Tutar";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.MaliyetId </td>
+                <td>@item.geneltutar1 </td>
+                <td>@item.HesapKodu @item.HesapAd </td>
+                <td>@item.Tutar </td>
+                <td>@item.FaaliyetId </td>
+                <td>@item.KMEId</td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+

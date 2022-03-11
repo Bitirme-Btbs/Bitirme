@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BitirmeModelStoreContainer" CdmEntityContainer="BitirmeEntities">
+    <EntitySetMapping Name="Faaliyet">
+      <EntityTypeMapping TypeName="BitirmeModel.Faaliyet">
+        <MappingFragment StoreEntitySet="Faaliyet">
+          <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
+          <ScalarProperty Name="FaaliyetAd" ColumnName="FaaliyetAd" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Gider">
+      <EntityTypeMapping TypeName="BitirmeModel.Gider">
+        <MappingFragment StoreEntitySet="Gider">
+          <ScalarProperty Name="GiderId" ColumnName="GiderId" />
+          <ScalarProperty Name="HesapKodu" ColumnName="HesapKodu" />
+          <ScalarProperty Name="HesapAd" ColumnName="HesapAd" />
+          <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KaynakMaliyetEtken">
+      <EntityTypeMapping TypeName="BitirmeModel.KaynakMaliyetEtken">
+        <MappingFragment StoreEntitySet="KaynakMaliyetEtken">
+          <ScalarProperty Name="KMEId" ColumnName="KMEId" />
+          <ScalarProperty Name="KMEAd" ColumnName="KMEAd" />
+          <ScalarProperty Name="TotalAdet" ColumnName="TotalAdet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Maliyet">
+      <EntityTypeMapping TypeName="BitirmeModel.Maliyet">
+        <MappingFragment StoreEntitySet="Maliyet">
+          <ScalarProperty Name="MaliyetId" ColumnName="MaliyetId" />
+          <ScalarProperty Name="GiderId" ColumnName="GiderId" />
+          <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
+          <ScalarProperty Name="KMEId" ColumnName="KMEId" />
+          <ScalarProperty Name="Onay" ColumnName="Onay" />
+          <ScalarProperty Name="Adet" ColumnName="Adet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="BitirmeModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GenelTutar">
+      <EntityTypeMapping TypeName="BitirmeModel.GenelTutar">
+        <MappingFragment StoreEntitySet="GenelTutar">
+          <ScalarProperty Name="geneltutar1" ColumnName="geneltutar" />
+          <ScalarProperty Name="MaliyetId" ColumnName="MaliyetId" />
+          <ScalarProperty Name="Oran" ColumnName="Oran" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="GiderId" ColumnName="GiderId" />
+          <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
+          <ScalarProperty Name="KMEId" ColumnName="KMEId" />
+          <ScalarProperty Name="Onay" ColumnName="Onay" />
+          <ScalarProperty Name="Adet" ColumnName="Adet" />
+          <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+          <ScalarProperty Name="HesapKodu" ColumnName="HesapKodu" />
+          <ScalarProperty Name="HesapAd" ColumnName="HesapAd" />
+          <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Oran">
+      <EntityTypeMapping TypeName="BitirmeModel.Oran">
+        <MappingFragment StoreEntitySet="Oran">
+          <ScalarProperty Name="MaliyetId" ColumnName="MaliyetId" />
+          <ScalarProperty Name="Oran1" ColumnName="Oran" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
