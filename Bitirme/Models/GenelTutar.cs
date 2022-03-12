@@ -14,7 +14,6 @@ namespace Bitirme.Models
     
     public partial class GenelTutar
     {
-        public Nullable<decimal> geneltutar1 { get; set; }
         public int MaliyetId { get; set; }
         public Nullable<decimal> Oran { get; set; }
         public int Expr1 { get; set; }
@@ -27,5 +26,8 @@ namespace Bitirme.Models
         public string HesapKodu { get; set; }
         public string HesapAd { get; set; }
         public Nullable<decimal> Tutar { get; set; }
+        public Nullable<decimal> Geneltutar1 { get; set; }
+        public string FaaliyetAd { get; set; }
+        public string KMEAd { get; set; }
     }
 }

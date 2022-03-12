@@ -24,7 +24,6 @@
         <MappingFragment StoreEntitySet="KaynakMaliyetEtken">
           <ScalarProperty Name="KMEId" ColumnName="KMEId" />
           <ScalarProperty Name="KMEAd" ColumnName="KMEAd" />
-          <ScalarProperty Name="TotalAdet" ColumnName="TotalAdet" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -54,7 +53,8 @@
     <EntitySetMapping Name="GenelTutar">
       <EntityTypeMapping TypeName="BitirmeModel.GenelTutar">
         <MappingFragment StoreEntitySet="GenelTutar">
-          <ScalarProperty Name="geneltutar1" ColumnName="geneltutar" />
+          <ScalarProperty Name="KMEAd" ColumnName="KMEAd" />
+          <ScalarProperty Name="FaaliyetAd" ColumnName="FaaliyetAd" />
           <ScalarProperty Name="MaliyetId" ColumnName="MaliyetId" />
           <ScalarProperty Name="Oran" ColumnName="Oran" />
           <ScalarProperty Name="Expr1" ColumnName="Expr1" />
@@ -67,6 +67,7 @@
           <ScalarProperty Name="HesapKodu" ColumnName="HesapKodu" />
           <ScalarProperty Name="HesapAd" ColumnName="HesapAd" />
           <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+          <ScalarProperty Name="Geneltutar1" ColumnName="Geneltutar" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

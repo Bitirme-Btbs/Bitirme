@@ -4,13 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="372e0b036198425cb550fdfab62d4b6a" Name="Diagram1">
+      <Diagram DiagramId="ea5c48ce096f4eeca9d37d2a4c41b889" Name="Diagram1">
         <EntityTypeShape EntityType="BitirmeModel.Faaliyet" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="BitirmeModel.Gider" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BitirmeModel.KaynakMaliyetEtken" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BitirmeModel.KaynakMaliyetEtken" Width="1.5" PointX="4.25" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="BitirmeModel.Maliyet" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="BitirmeModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BitirmeModel.GenelTutar" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BitirmeModel.GenelTutar" Width="1.5" PointX="7.25" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="BitirmeModel.Oran" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="BitirmeModel.FK_Maliyet_Faaliyet" ManuallyRouted="false" />
         <AssociationConnector Association="BitirmeModel.FK_Maliyet_Gider" ManuallyRouted="false" />

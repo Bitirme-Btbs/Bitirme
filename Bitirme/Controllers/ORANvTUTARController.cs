@@ -22,6 +22,7 @@ namespace Bitirme.Controllers
             var tutar = db.GenelTutar.ToList();
             return View(tutar);
         }
+      
     
             }
 }

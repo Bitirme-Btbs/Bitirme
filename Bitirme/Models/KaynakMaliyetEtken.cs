@@ -22,7 +22,6 @@ namespace Bitirme.Models
     
         public int KMEId { get; set; }
         public string KMEAd { get; set; }
-        public Nullable<int> TotalAdet { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maliyet> Maliyet { get; set; }

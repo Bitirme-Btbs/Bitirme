@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BitirmeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BitirmeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Faaliyet">
           <Key>
             <PropertyRef Name="FaaliyetId" />
@@ -27,7 +27,6 @@
           </Key>
           <Property Name="KMEId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KMEAd" Type="varchar" MaxLength="90" />
-          <Property Name="TotalAdet" Type="int" />
         </EntityType>
         <EntityType Name="Maliyet">
           <Key>
@@ -58,19 +57,21 @@ warning 6002: The table/view 'Bitirme.dbo.GenelTutar' does not have a primary ke
             <PropertyRef Name="Expr1" />
             <PropertyRef Name="Expr2" />
           </Key>
-          <Property Name="geneltutar" Type="decimal" Precision="38" Scale="6" />
           <Property Name="MaliyetId" Type="int" Nullable="false" />
-          <Property Name="Oran" Type="decimal" Precision="38" Scale="20" />
+          <Property Name="Oran" Type="decimal" Precision="29" Scale="13" />
           <Property Name="Expr1" Type="int" Nullable="false" />
           <Property Name="GiderId" Type="int" />
+          <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
           <Property Name="FaaliyetId" Type="int" />
           <Property Name="KMEId" Type="int" />
+          <Property Name="KMEAd" Type="varchar" MaxLength="90" />
           <Property Name="Onay" Type="bit" />
           <Property Name="Adet" Type="int" />
           <Property Name="Expr2" Type="int" Nullable="false" />
           <Property Name="HesapKodu" Type="varchar" MaxLength="90" />
           <Property Name="HesapAd" Type="varchar" MaxLength="90" />
           <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Geneltutar" Type="decimal" Precision="38" Scale="6" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -79,7 +80,7 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
             <PropertyRef Name="MaliyetId" />
           </Key>
           <Property Name="MaliyetId" Type="int" Nullable="false" />
-          <Property Name="Oran" Type="decimal" Precision="38" Scale="20" />
+          <Property Name="Oran" Type="decimal" Precision="29" Scale="13" />
         </EntityType>
         <Association Name="FK_Maliyet_Faaliyet">
           <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
@@ -125,19 +126,21 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GenelTutar" EntityType="Self.GenelTutar" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [GenelTutar].[geneltutar] AS [geneltutar], 
     [GenelTutar].[MaliyetId] AS [MaliyetId], 
     [GenelTutar].[Oran] AS [Oran], 
     [GenelTutar].[Expr1] AS [Expr1], 
     [GenelTutar].[GiderId] AS [GiderId], 
+    [GenelTutar].[FaaliyetAd] AS [FaaliyetAd], 
     [GenelTutar].[FaaliyetId] AS [FaaliyetId], 
     [GenelTutar].[KMEId] AS [KMEId], 
+    [GenelTutar].[KMEAd] AS [KMEAd], 
     [GenelTutar].[Onay] AS [Onay], 
     [GenelTutar].[Adet] AS [Adet], 
     [GenelTutar].[Expr2] AS [Expr2], 
     [GenelTutar].[HesapKodu] AS [HesapKodu], 
     [GenelTutar].[HesapAd] AS [HesapAd], 
-    [GenelTutar].[Tutar] AS [Tutar]
+    [GenelTutar].[Tutar] AS [Tutar], 
+    [GenelTutar].[Geneltutar] AS [Geneltutar]
     FROM [dbo].[GenelTutar] AS [GenelTutar]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Oran" EntityType="Self.Oran" store:Type="Views" store:Schema="dbo">
@@ -159,8 +162,7 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
             <End Role="Maliyet" EntitySet="Maliyet" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BitirmeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -188,7 +190,6 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
           </Key>
           <Property Name="KMEId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KMEAd" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
-          <Property Name="TotalAdet" Type="Int32" />
           <NavigationProperty Name="Maliyet" Relationship="Self.FK_Maliyet_KaynakMaliyetEtken" FromRole="KaynakMaliyetEtken" ToRole="Maliyet" />
         </EntityType>
         <EntityType Name="Maliyet">
@@ -221,9 +222,8 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
             <PropertyRef Name="Expr1" />
             <PropertyRef Name="Expr2" />
           </Key>
-          <Property Name="geneltutar1" Type="Decimal" Precision="38" Scale="6" />
           <Property Name="MaliyetId" Type="Int32" Nullable="false" />
-          <Property Name="Oran" Type="Decimal" Precision="38" Scale="20" />
+          <Property Name="Oran" Type="Decimal" Precision="29" Scale="13" />
           <Property Name="Expr1" Type="Int32" Nullable="false" />
           <Property Name="GiderId" Type="Int32" />
           <Property Name="FaaliyetId" Type="Int32" />
@@ -234,13 +234,16 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
           <Property Name="HesapKodu" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
           <Property Name="HesapAd" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
           <Property Name="Tutar" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Geneltutar1" Type="Decimal" Precision="38" Scale="6" />
+          <Property Name="FaaliyetAd" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="KMEAd" Type="String" MaxLength="90" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Oran">
           <Key>
             <PropertyRef Name="MaliyetId" />
           </Key>
           <Property Name="MaliyetId" Type="Int32" Nullable="false" />
-          <Property Name="Oran1" Type="Decimal" Precision="38" Scale="20" />
+          <Property Name="Oran1" Type="Decimal" Precision="29" Scale="13" />
         </EntityType>
         <Association Name="FK_Maliyet_Faaliyet">
           <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
@@ -328,7 +331,6 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
               <MappingFragment StoreEntitySet="KaynakMaliyetEtken">
                 <ScalarProperty Name="KMEId" ColumnName="KMEId" />
                 <ScalarProperty Name="KMEAd" ColumnName="KMEAd" />
-                <ScalarProperty Name="TotalAdet" ColumnName="TotalAdet" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -358,7 +360,8 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
           <EntitySetMapping Name="GenelTutar">
             <EntityTypeMapping TypeName="BitirmeModel.GenelTutar">
               <MappingFragment StoreEntitySet="GenelTutar">
-                <ScalarProperty Name="geneltutar1" ColumnName="geneltutar" />
+                <ScalarProperty Name="KMEAd" ColumnName="KMEAd" />
+                <ScalarProperty Name="FaaliyetAd" ColumnName="FaaliyetAd" />
                 <ScalarProperty Name="MaliyetId" ColumnName="MaliyetId" />
                 <ScalarProperty Name="Oran" ColumnName="Oran" />
                 <ScalarProperty Name="Expr1" ColumnName="Expr1" />
@@ -371,6 +374,7 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
                 <ScalarProperty Name="HesapKodu" ColumnName="HesapKodu" />
                 <ScalarProperty Name="HesapAd" ColumnName="HesapAd" />
                 <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+                <ScalarProperty Name="Geneltutar1" ColumnName="Geneltutar" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
