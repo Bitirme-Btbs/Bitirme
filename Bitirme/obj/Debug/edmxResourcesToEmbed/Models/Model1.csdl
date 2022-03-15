@@ -7,6 +7,7 @@
     <Property Name="FaaliyetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FaaliyetAd" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Maliyet" Relationship="Self.FK_Maliyet_Faaliyet" FromRole="Faaliyet" ToRole="Maliyet" />
+    <NavigationProperty Name="UrunMaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_Faaliyet" FromRole="Faaliyet" ToRole="UrunMaliyet" />
   </EntityType>
   <EntityType Name="Gider">
     <Key>
@@ -135,5 +136,112 @@
       <End Role="KaynakMaliyetEtken" EntitySet="KaynakMaliyetEtken" />
       <End Role="Maliyet" EntitySet="Maliyet" />
     </AssociationSet>
+    <EntitySet Name="ToplamFaaliyetTutar" EntityType="BitirmeModel.ToplamFaaliyetTutar" />
+    <EntitySet Name="DagıtımOlcu" EntityType="BitirmeModel.DagıtımOlcu" />
+    <EntitySet Name="Urun" EntityType="BitirmeModel.Urun" />
+    <EntitySet Name="UrunMaliyet" EntityType="BitirmeModel.UrunMaliyet" />
+    <AssociationSet Name="FK_UrunMaliyet_DagıtımOlcu" Association="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu">
+      <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunMaliyet_Faaliyet" Association="BitirmeModel.FK_UrunMaliyet_Faaliyet">
+      <End Role="Faaliyet" EntitySet="Faaliyet" />
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunMaliyet_UrunMaliyet" Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet">
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+      <End Role="UrunMaliyet1" EntitySet="UrunMaliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunMaliyet_UrunMaliyet1" Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="ToplamFaaliyetTutar">
+    <Key>
+      <PropertyRef Name="FaaliyetId" />
+    </Key>
+    <Property Name="FaaliyetId" Type="Int32" Nullable="false" />
+    <Property Name="toplam" Type="Decimal" Precision="38" Scale="6" />
+    <Property Name="FaaliyetAd" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DagıtımOlcu">
+    <Key>
+      <PropertyRef Name="DagıtımOlcu_Id" />
+    </Key>
+    <Property Name="DagıtımOlcu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DagıtımOlcu_Ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UrunMaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu" FromRole="DagıtımOlcu" ToRole="UrunMaliyet" />
+  </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunAd" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="UrunMaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1" FromRole="Urun" ToRole="UrunMaliyet" />
+  </EntityType>
+  <EntityType Name="UrunMaliyet">
+    <Key>
+      <PropertyRef Name="UrunMaliyet_Id" />
+    </Key>
+    <Property Name="UrunMaliyet_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UrunId" Type="Int32" />
+    <Property Name="DagıtımOlcu_Id" Type="Int32" />
+    <Property Name="FaaliyetId" Type="Int32" />
+    <Property Name="UrunDagıtımAdet" Type="Decimal" Precision="18" Scale="5" />
+    <NavigationProperty Name="DagıtımOlcu" Relationship="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu" FromRole="UrunMaliyet" ToRole="DagıtımOlcu" />
+    <NavigationProperty Name="Faaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_Faaliyet" FromRole="UrunMaliyet" ToRole="Faaliyet" />
+    <NavigationProperty Name="UrunMaliyet1" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet" FromRole="UrunMaliyet" ToRole="UrunMaliyet1" />
+    <NavigationProperty Name="UrunMaliyet2" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet" FromRole="UrunMaliyet1" ToRole="UrunMaliyet" />
+    <NavigationProperty Name="Urun" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1" FromRole="UrunMaliyet" ToRole="Urun" />
+  </EntityType>
+  <Association Name="FK_UrunMaliyet_DagıtımOlcu">
+    <End Type="BitirmeModel.DagıtımOlcu" Role="DagıtımOlcu" Multiplicity="0..1" />
+    <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DagıtımOlcu">
+        <PropertyRef Name="DagıtımOlcu_Id" />
+      </Principal>
+      <Dependent Role="UrunMaliyet">
+        <PropertyRef Name="DagıtımOlcu_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunMaliyet_Faaliyet">
+    <End Type="BitirmeModel.Faaliyet" Role="Faaliyet" Multiplicity="0..1" />
+    <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faaliyet">
+        <PropertyRef Name="FaaliyetId" />
+      </Principal>
+      <Dependent Role="UrunMaliyet">
+        <PropertyRef Name="FaaliyetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunMaliyet_UrunMaliyet">
+    <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="1" />
+    <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="UrunMaliyet">
+        <PropertyRef Name="UrunMaliyet_Id" />
+      </Principal>
+      <Dependent Role="UrunMaliyet1">
+        <PropertyRef Name="UrunMaliyet_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunMaliyet_UrunMaliyet1">
+    <End Type="BitirmeModel.Urun" Role="Urun" Multiplicity="0..1" />
+    <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="UrunId" />
+      </Principal>
+      <Dependent Role="UrunMaliyet">
+        <PropertyRef Name="UrunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BitirmeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DagıtımOlcu">
+    <Key>
+      <PropertyRef Name="DagıtımOlcu_Id" />
+    </Key>
+    <Property Name="DagıtımOlcu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DagıtımOlcu_Ad" Type="varchar(max)" />
+  </EntityType>
   <EntityType Name="Faaliyet">
     <Key>
       <PropertyRef Name="FaaliyetId" />
@@ -44,6 +51,23 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <EntityType Name="Urun">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunAd" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="UrunMaliyet">
+    <Key>
+      <PropertyRef Name="UrunMaliyet_Id" />
+    </Key>
+    <Property Name="UrunMaliyet_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunId" Type="int" />
+    <Property Name="DagıtımOlcu_Id" Type="int" />
+    <Property Name="FaaliyetId" Type="int" />
+    <Property Name="UrunDagıtımAdet" Type="decimal" Precision="18" Scale="5" />
+  </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'Bitirme.dbo.GenelTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="GenelTutar">
@@ -76,6 +100,16 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
     </Key>
     <Property Name="MaliyetId" Type="int" Nullable="false" />
     <Property Name="Oran" Type="decimal" Precision="29" Scale="13" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ToplamFaaliyetTutar">
+    <Key>
+      <PropertyRef Name="FaaliyetId" />
+    </Key>
+    <Property Name="FaaliyetId" Type="int" Nullable="false" />
+    <Property Name="toplam" Type="decimal" Precision="38" Scale="6" />
+    <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
   </EntityType>
   <Association Name="FK_Maliyet_Faaliyet">
     <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
@@ -113,12 +147,51 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_UrunMaliyet_DagıtımOlcu">
+    <End Role="DagıtımOlcu" Type="Self.DagıtımOlcu" Multiplicity="0..1" />
+    <End Role="UrunMaliyet" Type="Self.UrunMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DagıtımOlcu">
+        <PropertyRef Name="DagıtımOlcu_Id" />
+      </Principal>
+      <Dependent Role="UrunMaliyet">
+        <PropertyRef Name="DagıtımOlcu_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunMaliyet_Faaliyet">
+    <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
+    <End Role="UrunMaliyet" Type="Self.UrunMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faaliyet">
+        <PropertyRef Name="FaaliyetId" />
+      </Principal>
+      <Dependent Role="UrunMaliyet">
+        <PropertyRef Name="FaaliyetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UrunMaliyet_UrunMaliyet">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="UrunMaliyet" Type="Self.UrunMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="UrunId" />
+      </Principal>
+      <Dependent Role="UrunMaliyet">
+        <PropertyRef Name="UrunId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="BitirmeModelStoreContainer">
+    <EntitySet Name="DagıtımOlcu" EntityType="Self.DagıtımOlcu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Faaliyet" EntityType="Self.Faaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Gider" EntityType="Self.Gider" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KaynakMaliyetEtken" EntityType="Self.KaynakMaliyetEtken" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Maliyet" EntityType="Self.Maliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UrunMaliyet" EntityType="Self.UrunMaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="GenelTutar" EntityType="Self.GenelTutar" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [GenelTutar].[MaliyetId] AS [MaliyetId], 
@@ -144,6 +217,13 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
     [Oran].[Oran] AS [Oran]
     FROM [dbo].[Oran] AS [Oran]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="ToplamFaaliyetTutar" EntityType="Self.ToplamFaaliyetTutar" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ToplamFaaliyetTutar].[FaaliyetId] AS [FaaliyetId], 
+    [ToplamFaaliyetTutar].[toplam] AS [toplam], 
+    [ToplamFaaliyetTutar].[FaaliyetAd] AS [FaaliyetAd]
+    FROM [dbo].[ToplamFaaliyetTutar] AS [ToplamFaaliyetTutar]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_Maliyet_Faaliyet" Association="Self.FK_Maliyet_Faaliyet">
       <End Role="Faaliyet" EntitySet="Faaliyet" />
       <End Role="Maliyet" EntitySet="Maliyet" />
@@ -155,6 +235,18 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
     <AssociationSet Name="FK_Maliyet_KaynakMaliyetEtken" Association="Self.FK_Maliyet_KaynakMaliyetEtken">
       <End Role="KaynakMaliyetEtken" EntitySet="KaynakMaliyetEtken" />
       <End Role="Maliyet" EntitySet="Maliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunMaliyet_DagıtımOlcu" Association="Self.FK_UrunMaliyet_DagıtımOlcu">
+      <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunMaliyet_Faaliyet" Association="Self.FK_UrunMaliyet_Faaliyet">
+      <End Role="Faaliyet" EntitySet="Faaliyet" />
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UrunMaliyet_UrunMaliyet" Association="Self.FK_UrunMaliyet_UrunMaliyet">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

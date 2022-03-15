@@ -27,10 +27,12 @@
     <div>
         <label>Onay</label>
         @Html.DropDownListFor(ba => ba.Onay, new List<SelectListItem>() { new SelectListItem() { Text = "Aktif", Value = "True" }, new SelectListItem() { Text = "Pasif", Value = "False" } }, new { @class = "form-control" })
+
     </div>
     <div>
+      
         <label>Adet</label>
-        <input type="number" name="Adet" class="form-control" placeholder="Adet" />
+        <input type="number" name="Adet" class="form-control" placeholder="Adet"  />
     </div>
 
     <div style="margin-top:15px">

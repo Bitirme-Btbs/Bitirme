@@ -15,6 +15,14 @@
         <AssociationConnector Association="BitirmeModel.FK_Maliyet_Faaliyet" ManuallyRouted="false" />
         <AssociationConnector Association="BitirmeModel.FK_Maliyet_Gider" ManuallyRouted="false" />
         <AssociationConnector Association="BitirmeModel.FK_Maliyet_KaynakMaliyetEtken" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BitirmeModel.ToplamFaaliyetTutar" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BitirmeModel.DagıtımOlcu" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="BitirmeModel.Urun" Width="1.5" PointX="6" PointY="11" />
+        <EntityTypeShape EntityType="BitirmeModel.UrunMaliyet" Width="1.5" PointX="3" PointY="0.75" />
+        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu" />
+        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_Faaliyet" />
+        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet" />
+        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

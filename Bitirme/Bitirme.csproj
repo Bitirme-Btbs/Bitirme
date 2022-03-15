@@ -137,13 +137,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DagıtımOlcuController.cs" />
     <Compile Include="Controllers\FaaliyetController.cs" />
     <Compile Include="Controllers\GiderController.cs" />
     <Compile Include="Controllers\KaynakMaliyetEtkenController.cs" />
     <Compile Include="Controllers\MaliyetController.cs" />
-    <Compile Include="Controllers\ORANvTUTARController.cs" />
+    <Compile Include="Controllers\OthersController.cs" />
+    <Compile Include="Controllers\UrunController.cs" />
+    <Compile Include="Controllers\UrunMaliyetController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DagıtımOlcu.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Faaliyet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -179,6 +185,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ToplamFaaliyetTutar.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Urun.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UrunMaliyet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -453,6 +468,7 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dataTables.columnFilter.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -481,8 +497,18 @@
     <Content Include="Views\KaynakMaliyetEtken\Details.cshtml" />
     <Content Include="Views\Maliyet\Create.cshtml" />
     <Content Include="Views\Maliyet\Details.cshtml" />
-    <Content Include="Views\ORANvTUTAR\Oran.cshtml" />
-    <Content Include="Views\ORANvTUTAR\Tutar.cshtml" />
+    <Content Include="Views\Others\Oran.cshtml" />
+    <Content Include="Views\Others\Tutar.cshtml" />
+    <Content Include="Views\Others\FaaliyetToplam.cshtml" />
+    <Content Include="Views\Urun\Index.cshtml" />
+    <Content Include="Views\DagıtımOlcu\Index.cshtml" />
+    <Content Include="Views\UrunMaliyet\Index.cshtml" />
+    <Content Include="Views\UrunMaliyet\Details.cshtml" />
+    <Content Include="Views\UrunMaliyet\Create.cshtml" />
+    <Content Include="Views\Urun\Details.cshtml" />
+    <Content Include="Views\Urun\Create.cshtml" />
+    <Content Include="Views\DagıtımOlcu\Create.cshtml" />
+    <Content Include="Views\DagıtımOlcu\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

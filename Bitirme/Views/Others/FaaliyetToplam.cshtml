@@ -1,0 +1,65 @@
+﻿@using Bitirme.Models
+@model List<ToplamFaaliyetTutar>
+@{
+    ViewBag.Title = "FaaliyetToplam";
+}
+@{
+    decimal result = 0;
+}
+@foreach (var item in Model)
+{
+    result = result + Convert.ToDecimal(item.toplam);
+}
+
+<table id="mytbl" class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Faaliyet Id</th>
+            <th scope="col">Faaliyet Ad</th>
+            <th scope="col">Toplam</th>
+
+
+        </tr>
+    <tbody>
+
+
+
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td> @item.FaaliyetId </td>
+                <td>@item.FaaliyetAd</td>
+                <td>@item.toplam</td>
+
+
+            </tr>
+
+
+
+        }
+        <tr>
+            <th> </th>
+            <th ></th>
+            <td></td>
+        </tr>
+
+     
+        <tr>
+            <th> </th>
+            <th scope="row">Toplam</th>
+            <td>@result</td>
+        </tr>
+
+   
+    </tbody>
+</table>
+
+
+
+@*
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        @*<input type="hidden" name="@("item_name_" + i)" value="@Model[i].Description" />
+*@

@@ -12,20 +12,17 @@ namespace Bitirme.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Faaliyet
+    public partial class Urun
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Faaliyet()
+        public Urun()
         {
-            this.Maliyet = new HashSet<Maliyet>();
             this.UrunMaliyet = new HashSet<UrunMaliyet>();
         }
     
-        public int FaaliyetId { get; set; }
-        public string FaaliyetAd { get; set; }
+        public int UrunId { get; set; }
+        public string UrunAd { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Maliyet> Maliyet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UrunMaliyet> UrunMaliyet { get; set; }
     }

@@ -79,5 +79,41 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ToplamFaaliyetTutar">
+      <EntityTypeMapping TypeName="BitirmeModel.ToplamFaaliyetTutar">
+        <MappingFragment StoreEntitySet="ToplamFaaliyetTutar">
+          <ScalarProperty Name="FaaliyetAd" ColumnName="FaaliyetAd" />
+          <ScalarProperty Name="toplam" ColumnName="toplam" />
+          <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DagıtımOlcu">
+      <EntityTypeMapping TypeName="BitirmeModel.DagıtımOlcu">
+        <MappingFragment StoreEntitySet="DagıtımOlcu">
+          <ScalarProperty Name="DagıtımOlcu_Ad" ColumnName="DagıtımOlcu_Ad" />
+          <ScalarProperty Name="DagıtımOlcu_Id" ColumnName="DagıtımOlcu_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Urun">
+      <EntityTypeMapping TypeName="BitirmeModel.Urun">
+        <MappingFragment StoreEntitySet="Urun">
+          <ScalarProperty Name="UrunAd" ColumnName="UrunAd" />
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UrunMaliyet">
+      <EntityTypeMapping TypeName="BitirmeModel.UrunMaliyet">
+        <MappingFragment StoreEntitySet="UrunMaliyet">
+          <ScalarProperty Name="UrunDagıtımAdet" ColumnName="UrunDagıtımAdet" />
+          <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
+          <ScalarProperty Name="DagıtımOlcu_Id" ColumnName="DagıtımOlcu_Id" />
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="UrunMaliyet_Id" ColumnName="UrunMaliyet_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

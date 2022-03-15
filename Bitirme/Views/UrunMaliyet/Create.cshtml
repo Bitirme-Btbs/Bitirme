@@ -1,0 +1,30 @@
+﻿@using Bitirme.Models
+@model UrunMaliyet
+@{
+    ViewBag.Title = "Create";
+}
+
+<form method="post" class="form-group">
+
+    <div>
+        <label>Urun</label>
+        @Html.DropDownListFor(ba => ba.Urun.UrunId, (List<SelectListItem>)ViewBag.Urunler, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>Dağıtım Ölçüsü</label>
+        @Html.DropDownListFor(ba => ba.DagıtımOlcu.DagıtımOlcu_Id, (List<SelectListItem>)ViewBag.Do, new { @class = "form-control" })
+    </div>
+    <div>
+        <label>Faaliyet</label>
+        @Html.DropDownListFor(ba => ba.Faaliyet.FaaliyetId, (List<SelectListItem>)ViewBag.Faaliyetler, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Adet</label>
+        <input name="UrunDagıtımAdet" class="form-control" placeholder="Adet" />
+    </div>
+
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Ekle</button>
+    </div>
+</form>

@@ -1,0 +1,16 @@
+﻿@using Bitirme.Models
+@model DagıtımOlcu
+@{
+    ViewBag.Title = "Create";
+}
+
+<form class=" form-group" method="post">
+    <div> @Html.TextBoxFor(ba => ba.DagıtımOlcu_Ad, new { @class = "form-control" })</div>
+
+
+    <div style="margin-top:15px">
+        <button class="btn btn-info">Değıtım Ölçüsü Ekle</button>
+    </div>
+</form>
+
+

@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Bitirme.Models;
 namespace Bitirme.Controllers
 {
-    public class ORANvTUTARController : Controller
+    public class OthersController : Controller
     {
         BitirmeEntities db = new BitirmeEntities();
         // GET: ORANvTUTAR
@@ -22,7 +22,14 @@ namespace Bitirme.Controllers
             var tutar = db.GenelTutar.ToList();
             return View(tutar);
         }
-      
-    
-            }
+
+       
+        public ActionResult FaaliyetToplam()
+        {
+            var ft = db.ToplamFaaliyetTutar.ToList();
+            return View(ft);
+        }
+
+
+    }
 }

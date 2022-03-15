@@ -32,5 +32,9 @@ namespace Bitirme.Models
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<GenelTutar> GenelTutar { get; set; }
         public virtual DbSet<Oran> Oran { get; set; }
+        public virtual DbSet<ToplamFaaliyetTutar> ToplamFaaliyetTutar { get; set; }
+        public virtual DbSet<DagıtımOlcu> DagıtımOlcu { get; set; }
+        public virtual DbSet<Urun> Urun { get; set; }
+        public virtual DbSet<UrunMaliyet> UrunMaliyet { get; set; }
     }
 }
