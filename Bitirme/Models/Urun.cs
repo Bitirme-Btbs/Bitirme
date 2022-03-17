@@ -17,13 +17,13 @@ namespace Bitirme.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Urun()
         {
-            this.UrunMaliyet = new HashSet<UrunMaliyet>();
+            this.MaliyetUrun = new HashSet<MaliyetUrun>();
         }
     
         public int UrunId { get; set; }
         public string UrunAd { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UrunMaliyet> UrunMaliyet { get; set; }
+        public virtual ICollection<MaliyetUrun> MaliyetUrun { get; set; }
     }
 }

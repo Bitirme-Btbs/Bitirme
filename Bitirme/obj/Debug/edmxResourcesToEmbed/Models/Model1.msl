@@ -104,14 +104,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UrunMaliyet">
-      <EntityTypeMapping TypeName="BitirmeModel.UrunMaliyet">
-        <MappingFragment StoreEntitySet="UrunMaliyet">
-          <ScalarProperty Name="UrunDagıtımAdet" ColumnName="UrunDagıtımAdet" />
+    <EntitySetMapping Name="DagitimOlcuFaaliyetiliski">
+      <EntityTypeMapping TypeName="BitirmeModel.DagitimOlcuFaaliyetiliski">
+        <MappingFragment StoreEntitySet="DagitimOlcuFaaliyetiliski">
           <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
-          <ScalarProperty Name="DagıtımOlcu_Id" ColumnName="DagıtımOlcu_Id" />
+          <ScalarProperty Name="DagitimOlcuId" ColumnName="DagitimOlcuId" />
+          <ScalarProperty Name="Df_Id" ColumnName="Df_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MaliyetUrun">
+      <EntityTypeMapping TypeName="BitirmeModel.MaliyetUrun">
+        <MappingFragment StoreEntitySet="MaliyetUrun">
+          <ScalarProperty Name="UrunDagitimAdet" ColumnName="UrunDagitimAdet" />
+          <ScalarProperty Name="DagitimOlcuId" ColumnName="DagitimOlcuId" />
           <ScalarProperty Name="UrunId" ColumnName="UrunId" />
-          <ScalarProperty Name="UrunMaliyet_Id" ColumnName="UrunMaliyet_Id" />
+          <ScalarProperty Name="MaliyetUrunId" ColumnName="MaliyetUrunId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TutarUrunFaaliyet">
+      <EntityTypeMapping TypeName="BitirmeModel.TutarUrunFaaliyet">
+        <MappingFragment StoreEntitySet="TutarUrunFaaliyet">
+          <ScalarProperty Name="TutarTUF" ColumnName="TutarTUF" />
+          <ScalarProperty Name="Faaliyet" ColumnName="Faaliyet" />
+          <ScalarProperty Name="Urun" ColumnName="Urun" />
+          <ScalarProperty Name="TUF_ID" ColumnName="TUF_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OranUrunDagitim">
+      <EntityTypeMapping TypeName="BitirmeModel.OranUrunDagitim">
+        <MappingFragment StoreEntitySet="OranUrunDagitim">
+          <ScalarProperty Name="UrunAd" ColumnName="UrunAd" />
+          <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+          <ScalarProperty Name="DagitimOlcuId" ColumnName="DagitimOlcuId" />
+          <ScalarProperty Name="oran" ColumnName="oran" />
+          <ScalarProperty Name="MaliyetUrunId" ColumnName="MaliyetUrunId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

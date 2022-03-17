@@ -12,18 +12,12 @@ namespace Bitirme.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UrunMaliyet
+    public partial class OranUrunDagitim
     {
-        public int UrunMaliyet_Id { get; set; }
+        public int MaliyetUrunId { get; set; }
+        public Nullable<decimal> oran { get; set; }
+        public Nullable<int> DagitimOlcuId { get; set; }
         public Nullable<int> UrunId { get; set; }
-        public Nullable<int> DagıtımOlcu_Id { get; set; }
-        public Nullable<int> FaaliyetId { get; set; }
-        public Nullable<decimal> UrunDagıtımAdet { get; set; }
-    
-        public virtual DagıtımOlcu DagıtımOlcu { get; set; }
-        public virtual Faaliyet Faaliyet { get; set; }
-        public virtual UrunMaliyet UrunMaliyet1 { get; set; }
-        public virtual UrunMaliyet UrunMaliyet2 { get; set; }
-        public virtual Urun Urun { get; set; }
+        public string UrunAd { get; set; }
     }
 }

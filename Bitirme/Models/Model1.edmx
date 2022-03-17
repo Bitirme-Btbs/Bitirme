@@ -12,6 +12,14 @@
           <Property Name="DagıtımOlcu_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DagıtımOlcu_Ad" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="DagitimOlcuFaaliyetiliski">
+          <Key>
+            <PropertyRef Name="Df_Id" />
+          </Key>
+          <Property Name="Df_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DagitimOlcuId" Type="int" />
+          <Property Name="FaaliyetId" Type="int" />
+        </EntityType>
         <EntityType Name="Faaliyet">
           <Key>
             <PropertyRef Name="FaaliyetId" />
@@ -46,6 +54,15 @@
           <Property Name="Onay" Type="bit" />
           <Property Name="Adet" Type="int" />
         </EntityType>
+        <EntityType Name="MaliyetUrun">
+          <Key>
+            <PropertyRef Name="MaliyetUrunId" />
+          </Key>
+          <Property Name="MaliyetUrunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunId" Type="int" />
+          <Property Name="DagitimOlcuId" Type="int" />
+          <Property Name="UrunDagitimAdet" Type="decimal" Precision="18" Scale="3" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -56,22 +73,21 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <EntityType Name="TutarUrunFaaliyet">
+          <Key>
+            <PropertyRef Name="TUF_ID" />
+          </Key>
+          <Property Name="TUF_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Urun" Type="nvarchar(max)" />
+          <Property Name="Faaliyet" Type="nvarchar(max)" />
+          <Property Name="TutarTUF" Type="decimal" Precision="18" Scale="5" />
+        </EntityType>
         <EntityType Name="Urun">
           <Key>
             <PropertyRef Name="UrunId" />
           </Key>
           <Property Name="UrunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UrunAd" Type="varchar(max)" />
-        </EntityType>
-        <EntityType Name="UrunMaliyet">
-          <Key>
-            <PropertyRef Name="UrunMaliyet_Id" />
-          </Key>
-          <Property Name="UrunMaliyet_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UrunId" Type="int" />
-          <Property Name="DagıtımOlcu_Id" Type="int" />
-          <Property Name="FaaliyetId" Type="int" />
-          <Property Name="UrunDagıtımAdet" Type="decimal" Precision="18" Scale="5" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Bitirme.dbo.GenelTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -107,6 +123,18 @@ warning 6002: The table/view 'Bitirme.dbo.Oran' does not have a primary key defi
           <Property Name="Oran" Type="decimal" Precision="29" Scale="13" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.OranUrunDagitim' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OranUrunDagitim">
+          <Key>
+            <PropertyRef Name="MaliyetUrunId" />
+          </Key>
+          <Property Name="MaliyetUrunId" Type="int" Nullable="false" />
+          <Property Name="oran" Type="decimal" Precision="38" Scale="20" />
+          <Property Name="DagitimOlcuId" Type="int" />
+          <Property Name="UrunId" Type="int" />
+          <Property Name="UrunAd" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ToplamFaaliyetTutar">
           <Key>
@@ -116,6 +144,37 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
           <Property Name="toplam" Type="decimal" Precision="38" Scale="6" />
           <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="UrunFaaliyetTutar">
+          <Property Name="UrunAd" Type="varchar(max)" />
+          <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
+          <Property Name="tutar" Type="decimal" Precision="38" Scale="6" />
+        </EntityType>-->
+        <Association Name="FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu">
+          <End Role="DagıtımOlcu" Type="Self.DagıtımOlcu" Multiplicity="0..1" />
+          <End Role="DagitimOlcuFaaliyetiliski" Type="Self.DagitimOlcuFaaliyetiliski" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DagıtımOlcu">
+              <PropertyRef Name="DagıtımOlcu_Id" />
+            </Principal>
+            <Dependent Role="DagitimOlcuFaaliyetiliski">
+              <PropertyRef Name="DagitimOlcuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DagitimOlcuFaaliyetiliski_Faaliyet">
+          <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
+          <End Role="DagitimOlcuFaaliyetiliski" Type="Self.DagitimOlcuFaaliyetiliski" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faaliyet">
+              <PropertyRef Name="FaaliyetId" />
+            </Principal>
+            <Dependent Role="DagitimOlcuFaaliyetiliski">
+              <PropertyRef Name="FaaliyetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Maliyet_Faaliyet">
           <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
           <End Role="Maliyet" Type="Self.Maliyet" Multiplicity="*" />
@@ -152,51 +211,41 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UrunMaliyet_DagıtımOlcu">
+        <Association Name="FK_MaliyetUrun_DagıtımOlcu">
           <End Role="DagıtımOlcu" Type="Self.DagıtımOlcu" Multiplicity="0..1" />
-          <End Role="UrunMaliyet" Type="Self.UrunMaliyet" Multiplicity="*" />
+          <End Role="MaliyetUrun" Type="Self.MaliyetUrun" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DagıtımOlcu">
               <PropertyRef Name="DagıtımOlcu_Id" />
             </Principal>
-            <Dependent Role="UrunMaliyet">
-              <PropertyRef Name="DagıtımOlcu_Id" />
+            <Dependent Role="MaliyetUrun">
+              <PropertyRef Name="DagitimOlcuId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UrunMaliyet_Faaliyet">
-          <End Role="Faaliyet" Type="Self.Faaliyet" Multiplicity="0..1" />
-          <End Role="UrunMaliyet" Type="Self.UrunMaliyet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Faaliyet">
-              <PropertyRef Name="FaaliyetId" />
-            </Principal>
-            <Dependent Role="UrunMaliyet">
-              <PropertyRef Name="FaaliyetId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UrunMaliyet_UrunMaliyet">
+        <Association Name="FK_MaliyetUrun_Urun">
           <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
-          <End Role="UrunMaliyet" Type="Self.UrunMaliyet" Multiplicity="*" />
+          <End Role="MaliyetUrun" Type="Self.MaliyetUrun" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Urun">
               <PropertyRef Name="UrunId" />
             </Principal>
-            <Dependent Role="UrunMaliyet">
+            <Dependent Role="MaliyetUrun">
               <PropertyRef Name="UrunId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="BitirmeModelStoreContainer">
           <EntitySet Name="DagıtımOlcu" EntityType="Self.DagıtımOlcu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DagitimOlcuFaaliyetiliski" EntityType="Self.DagitimOlcuFaaliyetiliski" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Faaliyet" EntityType="Self.Faaliyet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gider" EntityType="Self.Gider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="KaynakMaliyetEtken" EntityType="Self.KaynakMaliyetEtken" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Maliyet" EntityType="Self.Maliyet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaliyetUrun" EntityType="Self.MaliyetUrun" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TutarUrunFaaliyet" EntityType="Self.TutarUrunFaaliyet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UrunMaliyet" EntityType="Self.UrunMaliyet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GenelTutar" EntityType="Self.GenelTutar" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [GenelTutar].[MaliyetId] AS [MaliyetId], 
@@ -222,6 +271,15 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
     [Oran].[Oran] AS [Oran]
     FROM [dbo].[Oran] AS [Oran]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="OranUrunDagitim" EntityType="Self.OranUrunDagitim" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OranUrunDagitim].[MaliyetUrunId] AS [MaliyetUrunId], 
+    [OranUrunDagitim].[oran] AS [oran], 
+    [OranUrunDagitim].[DagitimOlcuId] AS [DagitimOlcuId], 
+    [OranUrunDagitim].[UrunId] AS [UrunId], 
+    [OranUrunDagitim].[UrunAd] AS [UrunAd]
+    FROM [dbo].[OranUrunDagitim] AS [OranUrunDagitim]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ToplamFaaliyetTutar" EntityType="Self.ToplamFaaliyetTutar" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ToplamFaaliyetTutar].[FaaliyetId] AS [FaaliyetId], 
@@ -229,6 +287,14 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
     [ToplamFaaliyetTutar].[FaaliyetAd] AS [FaaliyetAd]
     FROM [dbo].[ToplamFaaliyetTutar] AS [ToplamFaaliyetTutar]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu" Association="Self.FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu">
+            <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
+            <End Role="DagitimOlcuFaaliyetiliski" EntitySet="DagitimOlcuFaaliyetiliski" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DagitimOlcuFaaliyetiliski_Faaliyet" Association="Self.FK_DagitimOlcuFaaliyetiliski_Faaliyet">
+            <End Role="Faaliyet" EntitySet="Faaliyet" />
+            <End Role="DagitimOlcuFaaliyetiliski" EntitySet="DagitimOlcuFaaliyetiliski" />
+          </AssociationSet>
           <AssociationSet Name="FK_Maliyet_Faaliyet" Association="Self.FK_Maliyet_Faaliyet">
             <End Role="Faaliyet" EntitySet="Faaliyet" />
             <End Role="Maliyet" EntitySet="Maliyet" />
@@ -241,17 +307,13 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
             <End Role="KaynakMaliyetEtken" EntitySet="KaynakMaliyetEtken" />
             <End Role="Maliyet" EntitySet="Maliyet" />
           </AssociationSet>
-          <AssociationSet Name="FK_UrunMaliyet_DagıtımOlcu" Association="Self.FK_UrunMaliyet_DagıtımOlcu">
+          <AssociationSet Name="FK_MaliyetUrun_DagıtımOlcu" Association="Self.FK_MaliyetUrun_DagıtımOlcu">
             <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+            <End Role="MaliyetUrun" EntitySet="MaliyetUrun" />
           </AssociationSet>
-          <AssociationSet Name="FK_UrunMaliyet_Faaliyet" Association="Self.FK_UrunMaliyet_Faaliyet">
-            <End Role="Faaliyet" EntitySet="Faaliyet" />
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UrunMaliyet_UrunMaliyet" Association="Self.FK_UrunMaliyet_UrunMaliyet">
+          <AssociationSet Name="FK_MaliyetUrun_Urun" Association="Self.FK_MaliyetUrun_Urun">
             <End Role="Urun" EntitySet="Urun" />
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+            <End Role="MaliyetUrun" EntitySet="MaliyetUrun" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -265,7 +327,7 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
           <Property Name="FaaliyetId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FaaliyetAd" Type="String" MaxLength="90" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Maliyet" Relationship="Self.FK_Maliyet_Faaliyet" FromRole="Faaliyet" ToRole="Maliyet" />
-          <NavigationProperty Name="UrunMaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_Faaliyet" FromRole="Faaliyet" ToRole="UrunMaliyet" />
+          <NavigationProperty Name="DagitimOlcuFaaliyetiliski" Relationship="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_Faaliyet" FromRole="Faaliyet" ToRole="DagitimOlcuFaaliyetiliski" />
         </EntityType>
         <EntityType Name="Gider">
           <Key>
@@ -397,23 +459,26 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
           <EntitySet Name="ToplamFaaliyetTutar" EntityType="BitirmeModel.ToplamFaaliyetTutar" />
           <EntitySet Name="DagıtımOlcu" EntityType="BitirmeModel.DagıtımOlcu" />
           <EntitySet Name="Urun" EntityType="BitirmeModel.Urun" />
-          <EntitySet Name="UrunMaliyet" EntityType="BitirmeModel.UrunMaliyet" />
-          <AssociationSet Name="FK_UrunMaliyet_DagıtımOlcu" Association="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu">
+          <EntitySet Name="DagitimOlcuFaaliyetiliski" EntityType="BitirmeModel.DagitimOlcuFaaliyetiliski" />
+          <EntitySet Name="MaliyetUrun" EntityType="BitirmeModel.MaliyetUrun" />
+          <AssociationSet Name="FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu" Association="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu">
             <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+            <End Role="DagitimOlcuFaaliyetiliski" EntitySet="DagitimOlcuFaaliyetiliski" />
           </AssociationSet>
-          <AssociationSet Name="FK_UrunMaliyet_Faaliyet" Association="BitirmeModel.FK_UrunMaliyet_Faaliyet">
+          <AssociationSet Name="FK_MaliyetUrun_DagıtımOlcu" Association="BitirmeModel.FK_MaliyetUrun_DagıtımOlcu">
+            <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
+            <End Role="MaliyetUrun" EntitySet="MaliyetUrun" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DagitimOlcuFaaliyetiliski_Faaliyet" Association="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_Faaliyet">
             <End Role="Faaliyet" EntitySet="Faaliyet" />
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+            <End Role="DagitimOlcuFaaliyetiliski" EntitySet="DagitimOlcuFaaliyetiliski" />
           </AssociationSet>
-          <AssociationSet Name="FK_UrunMaliyet_UrunMaliyet" Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet">
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
-            <End Role="UrunMaliyet1" EntitySet="UrunMaliyet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UrunMaliyet_UrunMaliyet1" Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1">
+          <AssociationSet Name="FK_MaliyetUrun_Urun" Association="BitirmeModel.FK_MaliyetUrun_Urun">
             <End Role="Urun" EntitySet="Urun" />
-            <End Role="UrunMaliyet" EntitySet="UrunMaliyet" />
+            <End Role="MaliyetUrun" EntitySet="MaliyetUrun" />
           </AssociationSet>
+          <EntitySet Name="TutarUrunFaaliyet" EntityType="BitirmeModel.TutarUrunFaaliyet" />
+          <EntitySet Name="OranUrunDagitim" EntityType="BitirmeModel.OranUrunDagitim" />
         </EntityContainer>
         <EntityType Name="ToplamFaaliyetTutar">
           <Key>
@@ -429,7 +494,8 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
           </Key>
           <Property Name="DagıtımOlcu_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DagıtımOlcu_Ad" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UrunMaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu" FromRole="DagıtımOlcu" ToRole="UrunMaliyet" />
+          <NavigationProperty Name="DagitimOlcuFaaliyetiliski" Relationship="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu" FromRole="DagıtımOlcu" ToRole="DagitimOlcuFaaliyetiliski" />
+          <NavigationProperty Name="MaliyetUrun" Relationship="BitirmeModel.FK_MaliyetUrun_DagıtımOlcu" FromRole="DagıtımOlcu" ToRole="MaliyetUrun" />
         </EntityType>
         <EntityType Name="Urun">
           <Key>
@@ -437,71 +503,96 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
           </Key>
           <Property Name="UrunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UrunAd" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="UrunMaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1" FromRole="Urun" ToRole="UrunMaliyet" />
+          <NavigationProperty Name="MaliyetUrun" Relationship="BitirmeModel.FK_MaliyetUrun_Urun" FromRole="Urun" ToRole="MaliyetUrun" />
         </EntityType>
-        <EntityType Name="UrunMaliyet">
+        <EntityType Name="DagitimOlcuFaaliyetiliski">
           <Key>
-            <PropertyRef Name="UrunMaliyet_Id" />
+            <PropertyRef Name="Df_Id" />
           </Key>
-          <Property Name="UrunMaliyet_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UrunId" Type="Int32" />
-          <Property Name="DagıtımOlcu_Id" Type="Int32" />
+          <Property Name="Df_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DagitimOlcuId" Type="Int32" />
           <Property Name="FaaliyetId" Type="Int32" />
-          <Property Name="UrunDagıtımAdet" Type="Decimal" Precision="18" Scale="5" />
-          <NavigationProperty Name="DagıtımOlcu" Relationship="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu" FromRole="UrunMaliyet" ToRole="DagıtımOlcu" />
-          <NavigationProperty Name="Faaliyet" Relationship="BitirmeModel.FK_UrunMaliyet_Faaliyet" FromRole="UrunMaliyet" ToRole="Faaliyet" />
-          <NavigationProperty Name="UrunMaliyet1" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet" FromRole="UrunMaliyet" ToRole="UrunMaliyet1" />
-          <NavigationProperty Name="UrunMaliyet2" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet" FromRole="UrunMaliyet1" ToRole="UrunMaliyet" />
-          <NavigationProperty Name="Urun" Relationship="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1" FromRole="UrunMaliyet" ToRole="Urun" />
+          <NavigationProperty Name="DagıtımOlcu" Relationship="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu" FromRole="DagitimOlcuFaaliyetiliski" ToRole="DagıtımOlcu" />
+          <NavigationProperty Name="Faaliyet" Relationship="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_Faaliyet" FromRole="DagitimOlcuFaaliyetiliski" ToRole="Faaliyet" />
         </EntityType>
-        <Association Name="FK_UrunMaliyet_DagıtımOlcu">
+        <EntityType Name="MaliyetUrun">
+          <Key>
+            <PropertyRef Name="MaliyetUrunId" />
+          </Key>
+          <Property Name="MaliyetUrunId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunId" Type="Int32" />
+          <Property Name="DagitimOlcuId" Type="Int32" />
+          <Property Name="UrunDagitimAdet" Type="Decimal" Precision="18" Scale="3" />
+          <NavigationProperty Name="DagıtımOlcu" Relationship="BitirmeModel.FK_MaliyetUrun_DagıtımOlcu" FromRole="MaliyetUrun" ToRole="DagıtımOlcu" />
+          <NavigationProperty Name="Urun" Relationship="BitirmeModel.FK_MaliyetUrun_Urun" FromRole="MaliyetUrun" ToRole="Urun" />
+        </EntityType>
+        <Association Name="FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu">
           <End Type="BitirmeModel.DagıtımOlcu" Role="DagıtımOlcu" Multiplicity="0..1" />
-          <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="*" />
+          <End Type="BitirmeModel.DagitimOlcuFaaliyetiliski" Role="DagitimOlcuFaaliyetiliski" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DagıtımOlcu">
               <PropertyRef Name="DagıtımOlcu_Id" />
             </Principal>
-            <Dependent Role="UrunMaliyet">
-              <PropertyRef Name="DagıtımOlcu_Id" />
+            <Dependent Role="DagitimOlcuFaaliyetiliski">
+              <PropertyRef Name="DagitimOlcuId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UrunMaliyet_Faaliyet">
+        <Association Name="FK_MaliyetUrun_DagıtımOlcu">
+          <End Type="BitirmeModel.DagıtımOlcu" Role="DagıtımOlcu" Multiplicity="0..1" />
+          <End Type="BitirmeModel.MaliyetUrun" Role="MaliyetUrun" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DagıtımOlcu">
+              <PropertyRef Name="DagıtımOlcu_Id" />
+            </Principal>
+            <Dependent Role="MaliyetUrun">
+              <PropertyRef Name="DagitimOlcuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DagitimOlcuFaaliyetiliski_Faaliyet">
           <End Type="BitirmeModel.Faaliyet" Role="Faaliyet" Multiplicity="0..1" />
-          <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="*" />
+          <End Type="BitirmeModel.DagitimOlcuFaaliyetiliski" Role="DagitimOlcuFaaliyetiliski" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Faaliyet">
               <PropertyRef Name="FaaliyetId" />
             </Principal>
-            <Dependent Role="UrunMaliyet">
+            <Dependent Role="DagitimOlcuFaaliyetiliski">
               <PropertyRef Name="FaaliyetId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UrunMaliyet_UrunMaliyet">
-          <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="1" />
-          <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="UrunMaliyet">
-              <PropertyRef Name="UrunMaliyet_Id" />
-            </Principal>
-            <Dependent Role="UrunMaliyet1">
-              <PropertyRef Name="UrunMaliyet_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UrunMaliyet_UrunMaliyet1">
+        <Association Name="FK_MaliyetUrun_Urun">
           <End Type="BitirmeModel.Urun" Role="Urun" Multiplicity="0..1" />
-          <End Type="BitirmeModel.UrunMaliyet" Role="UrunMaliyet" Multiplicity="*" />
+          <End Type="BitirmeModel.MaliyetUrun" Role="MaliyetUrun" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Urun">
               <PropertyRef Name="UrunId" />
             </Principal>
-            <Dependent Role="UrunMaliyet">
+            <Dependent Role="MaliyetUrun">
               <PropertyRef Name="UrunId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="TutarUrunFaaliyet">
+          <Key>
+            <PropertyRef Name="TUF_ID" />
+          </Key>
+          <Property Name="TUF_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Urun" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Faaliyet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TutarTUF" Type="Decimal" Precision="18" Scale="5" />
+        </EntityType>
+        <EntityType Name="OranUrunDagitim">
+          <Key>
+            <PropertyRef Name="MaliyetUrunId" />
+          </Key>
+          <Property Name="MaliyetUrunId" Type="Int32" Nullable="false" />
+          <Property Name="oran" Type="Decimal" Precision="38" Scale="20" />
+          <Property Name="DagitimOlcuId" Type="Int32" />
+          <Property Name="UrunId" Type="Int32" />
+          <Property Name="UrunAd" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -611,14 +702,43 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UrunMaliyet">
-            <EntityTypeMapping TypeName="BitirmeModel.UrunMaliyet">
-              <MappingFragment StoreEntitySet="UrunMaliyet">
-                <ScalarProperty Name="UrunDagıtımAdet" ColumnName="UrunDagıtımAdet" />
+          <EntitySetMapping Name="DagitimOlcuFaaliyetiliski">
+            <EntityTypeMapping TypeName="BitirmeModel.DagitimOlcuFaaliyetiliski">
+              <MappingFragment StoreEntitySet="DagitimOlcuFaaliyetiliski">
                 <ScalarProperty Name="FaaliyetId" ColumnName="FaaliyetId" />
-                <ScalarProperty Name="DagıtımOlcu_Id" ColumnName="DagıtımOlcu_Id" />
+                <ScalarProperty Name="DagitimOlcuId" ColumnName="DagitimOlcuId" />
+                <ScalarProperty Name="Df_Id" ColumnName="Df_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaliyetUrun">
+            <EntityTypeMapping TypeName="BitirmeModel.MaliyetUrun">
+              <MappingFragment StoreEntitySet="MaliyetUrun">
+                <ScalarProperty Name="UrunDagitimAdet" ColumnName="UrunDagitimAdet" />
+                <ScalarProperty Name="DagitimOlcuId" ColumnName="DagitimOlcuId" />
                 <ScalarProperty Name="UrunId" ColumnName="UrunId" />
-                <ScalarProperty Name="UrunMaliyet_Id" ColumnName="UrunMaliyet_Id" />
+                <ScalarProperty Name="MaliyetUrunId" ColumnName="MaliyetUrunId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TutarUrunFaaliyet">
+            <EntityTypeMapping TypeName="BitirmeModel.TutarUrunFaaliyet">
+              <MappingFragment StoreEntitySet="TutarUrunFaaliyet">
+                <ScalarProperty Name="TutarTUF" ColumnName="TutarTUF" />
+                <ScalarProperty Name="Faaliyet" ColumnName="Faaliyet" />
+                <ScalarProperty Name="Urun" ColumnName="Urun" />
+                <ScalarProperty Name="TUF_ID" ColumnName="TUF_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OranUrunDagitim">
+            <EntityTypeMapping TypeName="BitirmeModel.OranUrunDagitim">
+              <MappingFragment StoreEntitySet="OranUrunDagitim">
+                <ScalarProperty Name="UrunAd" ColumnName="UrunAd" />
+                <ScalarProperty Name="UrunId" ColumnName="UrunId" />
+                <ScalarProperty Name="DagitimOlcuId" ColumnName="DagitimOlcuId" />
+                <ScalarProperty Name="oran" ColumnName="oran" />
+                <ScalarProperty Name="MaliyetUrunId" ColumnName="MaliyetUrunId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

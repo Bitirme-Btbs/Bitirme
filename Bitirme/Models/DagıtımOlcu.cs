@@ -17,13 +17,16 @@ namespace Bitirme.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DagıtımOlcu()
         {
-            this.UrunMaliyet = new HashSet<UrunMaliyet>();
+            this.DagitimOlcuFaaliyetiliski = new HashSet<DagitimOlcuFaaliyetiliski>();
+            this.MaliyetUrun = new HashSet<MaliyetUrun>();
         }
     
         public int DagıtımOlcu_Id { get; set; }
         public string DagıtımOlcu_Ad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UrunMaliyet> UrunMaliyet { get; set; }
+        public virtual ICollection<DagitimOlcuFaaliyetiliski> DagitimOlcuFaaliyetiliski { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MaliyetUrun> MaliyetUrun { get; set; }
     }
 }

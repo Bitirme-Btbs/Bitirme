@@ -35,6 +35,9 @@ namespace Bitirme.Models
         public virtual DbSet<ToplamFaaliyetTutar> ToplamFaaliyetTutar { get; set; }
         public virtual DbSet<DagıtımOlcu> DagıtımOlcu { get; set; }
         public virtual DbSet<Urun> Urun { get; set; }
-        public virtual DbSet<UrunMaliyet> UrunMaliyet { get; set; }
+        public virtual DbSet<DagitimOlcuFaaliyetiliski> DagitimOlcuFaaliyetiliski { get; set; }
+        public virtual DbSet<MaliyetUrun> MaliyetUrun { get; set; }
+        public virtual DbSet<TutarUrunFaaliyet> TutarUrunFaaliyet { get; set; }
+        public virtual DbSet<OranUrunDagitim> OranUrunDagitim { get; set; }
     }
 }

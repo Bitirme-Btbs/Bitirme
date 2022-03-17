@@ -18,11 +18,14 @@
         <EntityTypeShape EntityType="BitirmeModel.ToplamFaaliyetTutar" Width="1.5" PointX="8.375" PointY="0.75" />
         <EntityTypeShape EntityType="BitirmeModel.DagıtımOlcu" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="BitirmeModel.Urun" Width="1.5" PointX="6" PointY="11" />
-        <EntityTypeShape EntityType="BitirmeModel.UrunMaliyet" Width="1.5" PointX="3" PointY="0.75" />
-        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_DagıtımOlcu" />
-        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_Faaliyet" />
-        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet" />
-        <AssociationConnector Association="BitirmeModel.FK_UrunMaliyet_UrunMaliyet1" />
+        <EntityTypeShape EntityType="BitirmeModel.DagitimOlcuFaaliyetiliski" Width="1.5" PointX="5" PointY="4.625" />
+        <EntityTypeShape EntityType="BitirmeModel.MaliyetUrun" Width="1.5" PointX="8.25" PointY="11.25" />
+        <AssociationConnector Association="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu" />
+        <AssociationConnector Association="BitirmeModel.FK_MaliyetUrun_DagıtımOlcu" />
+        <AssociationConnector Association="BitirmeModel.FK_DagitimOlcuFaaliyetiliski_Faaliyet" />
+        <AssociationConnector Association="BitirmeModel.FK_MaliyetUrun_Urun" />
+        <EntityTypeShape EntityType="BitirmeModel.TutarUrunFaaliyet" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="BitirmeModel.OranUrunDagitim" Width="1.5" PointX="9.75" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

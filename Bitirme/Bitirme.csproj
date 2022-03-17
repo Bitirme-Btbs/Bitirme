@@ -137,16 +137,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DagitimOlcuFaaliyetController.cs" />
     <Compile Include="Controllers\DagıtımOlcuController.cs" />
     <Compile Include="Controllers\FaaliyetController.cs" />
     <Compile Include="Controllers\GiderController.cs" />
     <Compile Include="Controllers\KaynakMaliyetEtkenController.cs" />
     <Compile Include="Controllers\MaliyetController.cs" />
+    <Compile Include="Controllers\MaliyetUrunController.cs" />
     <Compile Include="Controllers\OthersController.cs" />
     <Compile Include="Controllers\UrunController.cs" />
-    <Compile Include="Controllers\UrunMaliyetController.cs" />
+    <Compile Include="Controllers\UrunFaaliyetTutarController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DagitimOlcuFaaliyetiliski.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DagıtımOlcu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -164,6 +169,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Maliyet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MaliyetUrun.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -184,16 +192,19 @@
     <Compile Include="Models\Oran.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OranUrunDagitim.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ToplamFaaliyetTutar.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Urun.cs">
+    <Compile Include="Models\TutarUrunFaaliyet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\UrunMaliyet.cs">
+    <Compile Include="Models\Urun.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -502,13 +513,15 @@
     <Content Include="Views\Others\FaaliyetToplam.cshtml" />
     <Content Include="Views\Urun\Index.cshtml" />
     <Content Include="Views\DagıtımOlcu\Index.cshtml" />
-    <Content Include="Views\UrunMaliyet\Index.cshtml" />
-    <Content Include="Views\UrunMaliyet\Details.cshtml" />
-    <Content Include="Views\UrunMaliyet\Create.cshtml" />
     <Content Include="Views\Urun\Details.cshtml" />
     <Content Include="Views\Urun\Create.cshtml" />
     <Content Include="Views\DagıtımOlcu\Create.cshtml" />
     <Content Include="Views\DagıtımOlcu\Details.cshtml" />
+    <Content Include="Views\MaliyetUrun\Index.cshtml" />
+    <Content Include="Views\MaliyetUrun\Create.cshtml" />
+    <Content Include="Views\DagitimOlcuFaaliyet\Index.cshtml" />
+    <Content Include="Views\DagitimOlcuFaaliyet\Create.cshtml" />
+    <Content Include="Views\UrunFaaliyetTutar\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

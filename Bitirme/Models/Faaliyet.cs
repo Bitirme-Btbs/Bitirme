@@ -18,7 +18,7 @@ namespace Bitirme.Models
         public Faaliyet()
         {
             this.Maliyet = new HashSet<Maliyet>();
-            this.UrunMaliyet = new HashSet<UrunMaliyet>();
+            this.DagitimOlcuFaaliyetiliski = new HashSet<DagitimOlcuFaaliyetiliski>();
         }
     
         public int FaaliyetId { get; set; }
@@ -27,6 +27,6 @@ namespace Bitirme.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Maliyet> Maliyet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UrunMaliyet> UrunMaliyet { get; set; }
+        public virtual ICollection<DagitimOlcuFaaliyetiliski> DagitimOlcuFaaliyetiliski { get; set; }
     }
 }
