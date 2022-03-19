@@ -7,12 +7,11 @@
 <table id="mytbl" class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">MaliyetId</th>
-            <th scope="col">Geneltutar1</th>
-            <th scope="col">Hesap</th>
+            <th scope="col">Faaliyet Tutarı</th>
+            <th scope="col">Giderler</th>
          
-            <th scope="col">FaaliyetAd</th>
-            <th scope="col">KMEAd</th>
+            <th scope="col">Faaliyet Adı</th>
+            <th scope="col">Kaynak Maliyet Etkeni</th>
 
         </tr>
     </thead>
@@ -21,7 +20,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.MaliyetId </td>
+                
                 <td>@item.Geneltutar1 </td>
                 <td>@item.HesapKodu @item.HesapAd </td>
               

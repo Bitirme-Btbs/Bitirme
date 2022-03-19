@@ -9,10 +9,7 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                  </div>
-            <div class="navbar-collapse collapse">
+      
                 <ul class="nav navbar-nav">
 
                     <li>@Html.ActionLink("Faaliyet", "Index", "Faaliyet")</li>
@@ -22,25 +19,20 @@
                     @*<li>@Html.ActionLink("Oran", "Oran", "Others")</li>*@
                     <li>@Html.ActionLink("Tutar", "Tutar", "Others")</li>
                     <li>@Html.ActionLink("Faaliyetlerin Toplam Maliyeti", "FaaliyetToplam", "Others")</li>
-                    
+
                     @*<li>@Html.ActionLink("Ürün Adet", "Index", "UrunMaliyet")</li>*@
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown">Ürünler <i class="fa fa-angle-down"></i></a>
-                        <ul class="dropdown-menu">
+                   
                             <li>@Html.ActionLink("Ürünler", "Index", "Urun")</li>
                             <li>@Html.ActionLink("Faaliyet Maliyet Etkeni", "Index", "DagıtımOlcu")</li>
                             <li>@Html.ActionLink("Ürün Maliyeti", "Index", "MaliyetUrun")</li>
                             <li>@Html.ActionLink("Dagıtım İlişki", "Index", "DagitimOlcuFaaliyet")</li>
                             <li>@Html.ActionLink("Urun Tutar", "Index", "UrunFaaliyetTutar")</li>
 
+                      
 
-                        </ul>
-                    </li>
-                   
                 </ul>
             </div>
-        </div>
-    </div>
+ 
 
         @RenderBody()
         

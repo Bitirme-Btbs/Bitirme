@@ -7,7 +7,7 @@
 <table id="mytbl" class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">Urun Ad</th>
+            <th scope="col">Ürün Ad</th>
             <th scope="col">Dağıtım ölçüsü Ad</th>
 
             <th scope="col">Ürün Adet</th>
@@ -26,8 +26,8 @@
                 <td> @item.DagıtımOlcu.DagıtımOlcu_Ad </td>
 
                 <td> @item.UrunDagitimAdet </td>
-                <td>@Html.ActionLink("Sil Butonu", "Remove", new { id = item.MaliyetUrunId }, new { @class = "btn btn-warning" })</td>
-                <td>@Html.ActionLink("Güncelleme Butonu", "Details", new { id = item.MaliyetUrunId }, new { @class = "btn btn-success" })</td>
+                <td>@Html.ActionLink("Sil ", "Remove", new { id = item.MaliyetUrunId }, new { @class = "btn btn-warning" })</td>
+                <td>@Html.ActionLink("Güncelle", "Details", new { id = item.MaliyetUrunId }, new { @class = "btn btn-success" })</td>
 
             </tr>
         }
