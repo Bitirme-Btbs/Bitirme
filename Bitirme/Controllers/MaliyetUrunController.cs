@@ -32,6 +32,11 @@ namespace Bitirme.Controllers
                                              Value = i.UrunId.ToString(),
                                          }
                                          ).ToList();
+            urun.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "-- Lütfen Seçiniz --"
+            });
             ViewBag.Urunler = urun;
             List<SelectListItem> Dagıtımolcusu = (from i in db.DagıtımOlcu.ToList()
                                                   select new SelectListItem
@@ -41,7 +46,11 @@ namespace Bitirme.Controllers
                                                   }
                                         ).ToList();
             ViewBag.Do = Dagıtımolcusu;
-         
+            Dagıtımolcusu.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "-- Lütfen Seçiniz --"
+            });
 
             return View();
         }

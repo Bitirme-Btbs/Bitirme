@@ -18,10 +18,11 @@
 
         @foreach (var item in Model)
         {
+            var sayi=string.Format("{0:N2}", item.TutarTUF);
             <tr>
                 <td>@item.Faaliyet</td>
                 <td>@item.Urun</td>
-                <td>@item.TutarTUF</td>
+                <td>@sayi</td>
             </tr>
         }
     </tbody>
@@ -29,7 +30,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
 <script>
-    $('#mytbl').DataTable();
+    $('#mytbl').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+        }
+    });
 
 </script>
 

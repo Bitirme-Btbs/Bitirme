@@ -5,11 +5,15 @@
 }
 
 <form class=" form-group" method="post">
-    <div> @Html.TextBoxFor(ba => ba.DagıtımOlcu_Ad, new { @class = "form-control" })</div>
+    <div>
+        @Html.Label("Faaliyet Maliyet Etkeni")
+        @Html.TextBoxFor(ba => ba.DagıtımOlcu_Ad, new { @class = "form-control" })
+    @Html.ValidationMessageFor(ba => ba.DagıtımOlcu_Ad, "", new {@style="color:red"})
+    </div>
 
 
     <div style="margin-top:15px">
-        <button class="btn btn-info">Değıtım Ölçüsü Ekle</button>
+        <button class="btn btn-info">Faaliyet Maliyet Etkeni Ekle</button>
     </div>
 </form>
 

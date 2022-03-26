@@ -17,9 +17,10 @@
 
         @foreach (var item in Model)
         {
+            var sayi = string.Format("{0:N2}", item.Tutar);
             <tr>
                 <td> @item.HesapKodu @item.HesapAd </td>
-                <td> @item.Tutar </td>
+                <td> @sayi </td>
                 <td>@Html.ActionLink("Sil Butonu", "Remove", new { id = item.GiderId }, new { @class = "btn btn-warning" })</td>
                 <td>@Html.ActionLink("Güncelleme Butonu", "Details", new { id = item.GiderId }, new { @class = "btn btn-success" })</td>
 
@@ -31,6 +32,10 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.css" />
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/jszip-3.1.3/pdfmake-0.1.27/dt-1.10.15/b-1.3.1/b-html5-1.3.1/b-print-1.3.1/r-2.1.1/rg-1.0.0/datatables.min.js"></script>
 <script>
-    $('#mytbl').DataTable();
+    $('#mytbl').DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Turkish.json"
+        }
+    });
 
 </script>

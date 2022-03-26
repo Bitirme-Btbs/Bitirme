@@ -8,7 +8,9 @@
 }
 @foreach (var item in Model)
 {
+   
     result = result + Convert.ToDecimal(item.toplam);
+
 }
 
 <table id="mytbl" class="table table-striped">
@@ -27,11 +29,13 @@
 
         @foreach (var item in Model)
         {
+            var sayi = string.Format("{0:N2}", item.toplam);
+           
 
             <tr>
             
                 <td>@item.FaaliyetAd</td>
-                <td>@item.toplam</td>
+                <td>@sayi</td>
 
 
             </tr>
@@ -49,7 +53,7 @@
         <tr>
            
             <th scope="row">Toplam</th>
-            <td>@result</td>
+            <td>@string.Format("{0:N2}", result)</td>
         </tr>
 
    

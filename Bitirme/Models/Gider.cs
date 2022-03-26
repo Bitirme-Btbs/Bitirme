@@ -11,7 +11,8 @@ namespace Bitirme.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Gider
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,11 @@ namespace Bitirme.Models
         }
     
         public int GiderId { get; set; }
+        [Required(ErrorMessage ="Hesap Kodunu Giriniz...")]
         public string HesapKodu { get; set; }
+        [Required (ErrorMessage ="Hesap Adýný Giriniz...")]
         public string HesapAd { get; set; }
+        [Required(ErrorMessage ="Tutarý Giriniz...")]
         public Nullable<decimal> Tutar { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

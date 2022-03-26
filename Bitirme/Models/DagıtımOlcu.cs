@@ -11,7 +11,8 @@ namespace Bitirme.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class DagıtımOlcu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace Bitirme.Models
         }
     
         public int DagıtımOlcu_Id { get; set; }
+        [Required(ErrorMessage ="Faaliyet Maliyet Etkenini Giriniz.")]
         public string DagıtımOlcu_Ad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

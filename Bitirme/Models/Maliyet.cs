@@ -11,14 +11,20 @@ namespace Bitirme.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Maliyet
     {
         public int MaliyetId { get; set; }
+       [Required]
         public Nullable<int> GiderId { get; set; }
+        [Required]
         public Nullable<int> FaaliyetId { get; set; }
+        [Required]
         public Nullable<int> KMEId { get; set; }
+        [Required]
         public Nullable<bool> Onay { get; set; }
+        [Required]
         public Nullable<int> Adet { get; set; }
     
         public virtual Faaliyet Faaliyet { get; set; }

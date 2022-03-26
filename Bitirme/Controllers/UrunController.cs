@@ -47,7 +47,7 @@ namespace Bitirme.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Add");
+                return View();
             }
             else
             {

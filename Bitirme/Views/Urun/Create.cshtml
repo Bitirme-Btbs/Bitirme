@@ -5,7 +5,11 @@
 }
 
 <form class=" form-group" method="post">
-    <div> @Html.TextBoxFor(ba => ba.UrunAd, new { @class = "form-control" })</div>
+    <div>
+        @Html.Label("Ürün Adı")
+        @Html.TextBoxFor(ba => ba.UrunAd, new { @class = "form-control" })
+        @Html.ValidationMessageFor(ba => ba.UrunAd,"",new { @style = "color:red" })
+    </div>
 
 
     <div style="margin-top:15px">

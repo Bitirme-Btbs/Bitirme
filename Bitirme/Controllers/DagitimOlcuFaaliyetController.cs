@@ -27,6 +27,11 @@ namespace Bitirme.Controllers
                                                       Value = i.DagıtımOlcu_Id.ToString(),
                                                   }
                                         ).ToList();
+            Dagıtımolcusu.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "-- Lütfen Seçiniz --"
+            });
             ViewBag.Do = Dagıtımolcusu;
             List<SelectListItem> faaliyet = (from i in db.Faaliyet.ToList()
                                              select new SelectListItem
@@ -35,6 +40,11 @@ namespace Bitirme.Controllers
                                                  Value = i.FaaliyetId.ToString(),
                                              }
                                         ).ToList();
+            faaliyet.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "-- Lütfen Seçiniz --"
+            });
             ViewBag.Faaliyetler = faaliyet;
 
             return View();
