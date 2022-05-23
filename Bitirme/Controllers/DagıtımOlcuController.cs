@@ -31,9 +31,16 @@ namespace Bitirme.Controllers
             }
             else
             {
-                db.DagıtımOlcu.Add(parametre);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var mukerrer = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Ad == parametre.DagıtımOlcu_Ad).FirstOrDefault();
+                if (mukerrer==null)
+                {
+                    db.DagıtımOlcu.Add(parametre);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+
+                }
+                return View();
+                
             }
 
 
@@ -45,10 +52,18 @@ namespace Bitirme.Controllers
         }
         public ActionResult Edit(DagıtımOlcu parametre)
         {
-            var daol = db.DagıtımOlcu.Find(parametre.DagıtımOlcu_Id);
-            daol.DagıtımOlcu_Ad = parametre.DagıtımOlcu_Ad;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var mukerrer = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Ad == parametre.DagıtımOlcu_Ad).FirstOrDefault();
+            if (mukerrer==null)
+            {
+                var daol = db.DagıtımOlcu.Find(parametre.DagıtımOlcu_Id);
+                daol.DagıtımOlcu_Ad = parametre.DagıtımOlcu_Ad;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            var id = parametre.DagıtımOlcu_Id;
+            string yol = "Details/" + id.ToString();
+            return RedirectToAction(yol);
+           
 
         }
         public ActionResult Remove(int id)

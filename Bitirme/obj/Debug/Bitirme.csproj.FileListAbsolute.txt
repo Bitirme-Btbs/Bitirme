@@ -72,7 +72,6 @@ C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\System.Web.WebPages.R
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\Newtonsoft.Json.xml
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\Antlr3.Runtime.pdb
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\obj\Debug\Bitirme.csproj.AssemblyReference.cache
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\obj\Debug\Bitirme.csproj.CoreCompileInputs.cache
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\obj\Debug\Bitirme.csproj.CopyComplete
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\obj\Debug\Bitirme.dll
@@ -164,3 +163,4 @@ C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\Mvc.JQuery.DataTables
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\Mvc.JQuery.DataTables.dll
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\System.Linq.Dynamic.Core.dll
 C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\bin\System.Linq.Dynamic.Core.xml
+C:\Users\Burak Akmanoğlu\source\repos\Bitirme\Bitirme\obj\Debug\Bitirme.csproj.AssemblyReference.cache

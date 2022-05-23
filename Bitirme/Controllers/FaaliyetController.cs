@@ -30,9 +30,15 @@ namespace Bitirme.Controllers
             }
             else
             {
+                var mukerrer = db.Faaliyet.Where(ba => ba.FaaliyetAd == parametre.FaaliyetAd).FirstOrDefault();
+                if (mukerrer==null)
+                {
                 db.Faaliyet.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                }
+                return View();
+               
             }
 
         }
@@ -50,10 +56,17 @@ namespace Bitirme.Controllers
         }
         public ActionResult Edit(Faaliyet parametre)
         {
-            var faaliyetdeger = db.Faaliyet.Find(parametre.FaaliyetId);
-            faaliyetdeger.FaaliyetAd = parametre.FaaliyetAd;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var mukerrer = db.Faaliyet.Where(ba => ba.FaaliyetAd == parametre.FaaliyetAd).FirstOrDefault();
+            if (mukerrer == null)
+            {
+                var faaliyetdeger = db.Faaliyet.Find(parametre.FaaliyetId);
+                faaliyetdeger.FaaliyetAd = parametre.FaaliyetAd;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            var id = parametre.FaaliyetId;
+            string yolu = "Details/" + id.ToString();
+            return RedirectToAction(yolu);
 
         }
 

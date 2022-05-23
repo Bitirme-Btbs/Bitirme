@@ -8,17 +8,17 @@
 
     <div>
         <label>Urun</label>
-        @Html.DropDownListFor(ba => ba.Urun.UrunId, (List<SelectListItem>)ViewBag.Urunler, new { @class = "form-control" })
+        @Html.DropDownListFor(ba => ba.Urun.UrunId, (List<SelectListItem>)ViewBag.Urunler, new { @class = "form-control", required = "required" })
     </div>
     <div>
         <label>Dağıtım Ölçüsü</label>
-        @Html.DropDownListFor(ba => ba.DagıtımOlcu.DagıtımOlcu_Id, (List<SelectListItem>)ViewBag.Do, new { @class = "form-control" })
+        @Html.DropDownListFor(ba => ba.DagıtımOlcu.DagıtımOlcu_Id, (List<SelectListItem>)ViewBag.Do, new { @class = "form-control", required = "required" })
     </div>
    
 
     <div>
         <label>Adet</label>
-        <input name="UrunDagitimAdet" class="form-control" placeholder="Adet" />
+        @Html.TextBoxFor(ba => ba.UrunDagitimAdet, new { @class = "form-control" })
     </div>
 
     <div style="margin-top:15px">

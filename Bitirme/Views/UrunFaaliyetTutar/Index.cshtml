@@ -1,13 +1,12 @@
 ﻿@using Bitirme.Models
-@model List<TutarUrunFaaliyet>
 @{
     ViewBag.Title = "Index";
 }
 
-
 <table id="mytbl" class="table table-striped">
     <thead>
         <tr>
+            <th scope="col">ID </th>
             <th scope="col">Faaliyet </th>
             <th scope="col">Ürün</th>
             <th scope="col">Tutar</th>
@@ -18,8 +17,10 @@
 
         @foreach (var item in Model)
         {
-            var sayi=string.Format("{0:N2}", item.TutarTUF);
+            var sayi = string.Format("{0:N2}", item.TutarTUF);
             <tr>
+
+                <td>@item.TUF_ID</td>
                 <td>@item.Faaliyet</td>
                 <td>@item.Urun</td>
                 <td>@sayi</td>
@@ -37,4 +38,3 @@
     });
 
 </script>
-

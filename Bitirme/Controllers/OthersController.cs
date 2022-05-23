@@ -29,6 +29,11 @@ namespace Bitirme.Controllers
             var ft = db.ToplamFaaliyetTutar.ToList();
             return View(ft);
         }
+        public ActionResult Endirekt()
+        {
+            var endirekt = db.EndirektUretimMaliyeti.ToList();
+            return View(endirekt);
+        }
 
 
     }

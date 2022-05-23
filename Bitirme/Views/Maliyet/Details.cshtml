@@ -30,9 +30,13 @@
         @Html.DropDownListFor(ba => ba.Onay, new List<SelectListItem>() { new SelectListItem() { Text = "Aktif", Value = "True" }, new SelectListItem() { Text = "Pasif", Value = "False" } }, new { @class = "form-control" })
 
     </div>
-    <div>
+    @*<div>
         <label>Adet</label>
         <input type="number" name="Adet" class="form-control" placeholder="Adet" />
+    </div>*@
+    <div>
+        <label>Adet</label>
+        @Html.TextBoxFor(ba => ba.Adet, new { @class = "form-control" })
     </div>
     <br />
 </div>

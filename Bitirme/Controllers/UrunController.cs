@@ -30,10 +30,18 @@ namespace Bitirme.Controllers
         }
         public ActionResult Edit(Urun parametre)
         {
-            var urunum = db.Urun.Find(parametre.UrunId);
-            urunum.UrunAd = parametre.UrunAd;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            var mukerrer = db.Urun.Where(ba => ba.UrunAd == parametre.UrunAd).FirstOrDefault();
+            if (mukerrer == null)
+            {
+                var urunum = db.Urun.Find(parametre.UrunId);
+                urunum.UrunAd = parametre.UrunAd;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            var id = parametre.UrunId;
+            string yolu = "Details/" + id.ToString();
+            return RedirectToAction(yolu);
 
         }
         [HttpGet]
@@ -51,9 +59,16 @@ namespace Bitirme.Controllers
             }
             else
             {
-                db.Urun.Add(parametre);
+                var mukerrer = db.Urun.Where(ba => ba.UrunAd == parametre.UrunAd).FirstOrDefault();
+                if (mukerrer==null)
+                {
+                    db.Urun.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+
+                }
+                return View();
+
             }
             
             

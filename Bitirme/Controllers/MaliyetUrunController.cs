@@ -57,30 +57,82 @@ namespace Bitirme.Controllers
         [HttpPost]
         public ActionResult Create(MaliyetUrun parametre)
         {
-            var urn = db.Urun.Where(ba => ba.UrunId == parametre.Urun.UrunId).FirstOrDefault();
-            parametre.Urun = urn;
-            var dao = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Id == parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
-            parametre.DagıtımOlcu = dao;
-            
+            List<SelectListItem> urun = (from i in db.Urun.ToList()
+                                         select new SelectListItem
+                                         {
+                                             Text = i.UrunAd,
+                                             Value = i.UrunId.ToString(),
+                                         }
+                                        ).ToList();
+            urun.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "-- Lütfen Seçiniz --"
+            });
+            ViewBag.Urunler = urun;
+            List<SelectListItem> Dagıtımolcusu = (from i in db.DagıtımOlcu.ToList()
+                                                  select new SelectListItem
+                                                  {
+                                                      Text = i.DagıtımOlcu_Ad,
+                                                      Value = i.DagıtımOlcu_Id.ToString(),
+                                                  }
+                                        ).ToList();
+            ViewBag.Do = Dagıtımolcusu;
+            Dagıtımolcusu.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "-- Lütfen Seçiniz --"
+            });
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                
+                var mukerrer = db.MaliyetUrun.Where(ba => ba.UrunId == parametre.Urun.UrunId && ba.DagitimOlcuId==parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
+                var required = parametre.Urun.UrunId;
+                if (mukerrer==null)
+                {
 
-            db.MaliyetUrun.Add(parametre);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                    var urn = db.Urun.Where(ba => ba.UrunId == parametre.Urun.UrunId).FirstOrDefault();
+                parametre.Urun = urn;
+                var dao = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Id == parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
+                parametre.DagıtımOlcu = dao;
+
+
+                db.MaliyetUrun.Add(parametre);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+                    
+                }
+                return RedirectToAction("Create");
+            }
         }
         public ActionResult Edit(MaliyetUrun parametre)
         {
+            var mukerrer = db.MaliyetUrun.Where(ba => ba.UrunId == parametre.Urun.UrunId && ba.DagitimOlcuId == parametre.DagıtımOlcu.DagıtımOlcu_Id && ba.UrunDagitimAdet==parametre.UrunDagitimAdet).FirstOrDefault();
+            if (mukerrer==null)
+            {
+
+            
             var m = db.MaliyetUrun.Find(parametre.MaliyetUrunId);
 
             m.UrunDagitimAdet = parametre.UrunDagitimAdet;
-            var urun = db.Urun.Where(ba => ba.UrunId == parametre.Urun.UrunId).FirstOrDefault();
-            parametre.Urun = urun;
-            var daol = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Id == parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
-            parametre.DagıtımOlcu = daol;
-          
 
+            var m_urun = db.Urun.Where(ba => ba.UrunId == parametre.Urun.UrunId).FirstOrDefault();
+            m.UrunId = m_urun.UrunId;
+
+            var m_daol = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Id == parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
+            m.DagitimOlcuId = m_daol.DagıtımOlcu_Id;
+           
+         
 
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index"); }
+            var id = parametre.MaliyetUrunId;
+            string way = "Details/" + id.ToString();
+            return RedirectToAction(way);
         }
         public ActionResult Details(int id)
         {

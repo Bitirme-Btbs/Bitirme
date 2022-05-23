@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BitirmeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BirimMaliyet">
+    <Key>
+      <PropertyRef Name="BM_Id" />
+    </Key>
+    <Property Name="BM_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Urun_ID" Type="int" />
+    <Property Name="Dimmg" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dig" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BirimDagitimOlcu" Type="int" />
+  </EntityType>
   <EntityType Name="DagıtımOlcu">
     <Key>
       <PropertyRef Name="DagıtımOlcu_Id" />
@@ -49,6 +59,14 @@
     <Property Name="Onay" Type="bit" />
     <Property Name="Adet" Type="int" />
   </EntityType>
+  <EntityType Name="MaliyetEndirektUretim">
+    <Key>
+      <PropertyRef Name="EUM_Id" />
+    </Key>
+    <Property Name="EUM_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Urun_Id" Type="int" />
+    <Property Name="Toplam" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
   <EntityType Name="MaliyetUrun">
     <Key>
       <PropertyRef Name="MaliyetUrunId" />
@@ -58,15 +76,28 @@
     <Property Name="DagitimOlcuId" Type="int" />
     <Property Name="UrunDagitimAdet" Type="decimal" Precision="18" Scale="3" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
+  <EntityType Name="TblBirimMaliyetTutar">
     <Key>
-      <PropertyRef Name="diagram_id" />
+      <PropertyRef Name="BMT_ID" />
     </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
+    <Property Name="BMT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Urunler" Type="nvarchar(max)" />
+    <Property Name="EndirekUM" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dimmg" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dig" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ToplamMaliyet" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="BirimMaliyet" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="TblToplamMaliyet">
+    <Key>
+      <PropertyRef Name="TMaliyet_ID" />
+    </Key>
+    <Property Name="TMaliyet_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UrunAdi" Type="nvarchar(max)" />
+    <Property Name="EndirektToplami" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dimmg" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dig" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ToplamMaliyeti" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="TutarUrunFaaliyet">
     <Key>
@@ -83,6 +114,35 @@
     </Key>
     <Property Name="UrunId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UrunAd" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.BirimMaliyetTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="BirimMaliyetTutar">
+    <Key>
+      <PropertyRef Name="UrunId" />
+      <PropertyRef Name="MaliyetUrunId" />
+    </Key>
+    <Property Name="UrunId" Type="int" Nullable="false" />
+    <Property Name="UrunAd" Type="varchar(max)" />
+    <Property Name="EndirektToplam" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dimmg" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dig" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ToplamMaliyet" Type="decimal" Precision="20" Scale="2" />
+    <Property Name="BirimDagitimOlcu" Type="int" />
+    <Property Name="MaliyetUrunId" Type="int" Nullable="false" />
+    <Property Name="Expr1" Type="int" />
+    <Property Name="DagitimOlcuId" Type="int" />
+    <Property Name="UrunDagitimAdet" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="BirimMaliyet" Type="decimal" Precision="38" Scale="17" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.EndirektUretimMaliyeti' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EndirektUretimMaliyeti">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="int" Nullable="false" />
+    <Property Name="Toplam" Type="decimal" Precision="38" Scale="6" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'Bitirme.dbo.GenelTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -140,12 +200,55 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamFaaliyetTutar' does not have a p
     <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6013: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="UrunFaaliyetTutar">
-          <Property Name="UrunAd" Type="varchar(max)" />
-          <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
-          <Property Name="tutar" Type="decimal" Precision="38" Scale="6" />
-        </EntityType>-->
+warning 6002: The table/view 'Bitirme.dbo.ToplamMaliyet' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ToplamMaliyet">
+    <Key>
+      <PropertyRef Name="UrunId" />
+    </Key>
+    <Property Name="UrunId" Type="int" Nullable="false" />
+    <Property Name="UrunAd" Type="varchar(max)" />
+    <Property Name="EndirektToplam" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dimmg" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Dig" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ToplamMaliyet" Type="decimal" Precision="20" Scale="2" />
+    <Property Name="BirimDagitimOlcu" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="UrunFaaliyetTutar">
+    <Key>
+      <PropertyRef Name="FaaliyetId" />
+    </Key>
+    <Property Name="UrunAd" Type="varchar(max)" />
+    <Property Name="FaaliyetAd" Type="nvarchar" MaxLength="90" />
+    <Property Name="FaaliyetId" Type="int" Nullable="false" />
+    <Property Name="tutar" Type="decimal" Precision="38" Scale="6" />
+    <Property Name="Number" Type="bigint" />
+  </EntityType>
+  <Association Name="FK_BirimMaliyet_DagıtımOlcu">
+    <End Role="DagıtımOlcu" Type="Self.DagıtımOlcu" Multiplicity="0..1" />
+    <End Role="BirimMaliyet" Type="Self.BirimMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DagıtımOlcu">
+        <PropertyRef Name="DagıtımOlcu_Id" />
+      </Principal>
+      <Dependent Role="BirimMaliyet">
+        <PropertyRef Name="BirimDagitimOlcu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BirimMaliyet_Urun">
+    <End Role="Urun" Type="Self.Urun" Multiplicity="0..1" />
+    <End Role="BirimMaliyet" Type="Self.BirimMaliyet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Urun">
+        <PropertyRef Name="UrunId" />
+      </Principal>
+      <Dependent Role="BirimMaliyet">
+        <PropertyRef Name="Urun_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu">
     <End Role="DagıtımOlcu" Type="Self.DagıtımOlcu" Multiplicity="0..1" />
     <End Role="DagitimOlcuFaaliyetiliski" Type="Self.DagitimOlcuFaaliyetiliski" Multiplicity="*" />
@@ -230,17 +333,45 @@ warning 6013: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a pri
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="ProductPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SPBirimMaliyetTutar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SPToplamMaliyet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="BitirmeModelStoreContainer">
+    <EntitySet Name="BirimMaliyet" EntityType="Self.BirimMaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DagıtımOlcu" EntityType="Self.DagıtımOlcu" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DagitimOlcuFaaliyetiliski" EntityType="Self.DagitimOlcuFaaliyetiliski" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Faaliyet" EntityType="Self.Faaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Gider" EntityType="Self.Gider" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KaynakMaliyetEtken" EntityType="Self.KaynakMaliyetEtken" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Maliyet" EntityType="Self.Maliyet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MaliyetEndirektUretim" EntityType="Self.MaliyetEndirektUretim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MaliyetUrun" EntityType="Self.MaliyetUrun" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblBirimMaliyetTutar" EntityType="Self.TblBirimMaliyetTutar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TblToplamMaliyet" EntityType="Self.TblToplamMaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TutarUrunFaaliyet" EntityType="Self.TutarUrunFaaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Urun" EntityType="Self.Urun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BirimMaliyetTutar" EntityType="Self.BirimMaliyetTutar" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [BirimMaliyetTutar].[UrunId] AS [UrunId], 
+    [BirimMaliyetTutar].[UrunAd] AS [UrunAd], 
+    [BirimMaliyetTutar].[EndirektToplam] AS [EndirektToplam], 
+    [BirimMaliyetTutar].[Dimmg] AS [Dimmg], 
+    [BirimMaliyetTutar].[Dig] AS [Dig], 
+    [BirimMaliyetTutar].[ToplamMaliyet] AS [ToplamMaliyet], 
+    [BirimMaliyetTutar].[BirimDagitimOlcu] AS [BirimDagitimOlcu], 
+    [BirimMaliyetTutar].[MaliyetUrunId] AS [MaliyetUrunId], 
+    [BirimMaliyetTutar].[Expr1] AS [Expr1], 
+    [BirimMaliyetTutar].[DagitimOlcuId] AS [DagitimOlcuId], 
+    [BirimMaliyetTutar].[UrunDagitimAdet] AS [UrunDagitimAdet], 
+    [BirimMaliyetTutar].[BirimMaliyet] AS [BirimMaliyet]
+    FROM [dbo].[BirimMaliyetTutar] AS [BirimMaliyetTutar]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="EndirektUretimMaliyeti" EntityType="Self.EndirektUretimMaliyeti" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [EndirektUretimMaliyeti].[UrunId] AS [UrunId], 
+    [EndirektUretimMaliyeti].[Toplam] AS [Toplam]
+    FROM [dbo].[EndirektUretimMaliyeti] AS [EndirektUretimMaliyeti]</DefiningQuery>
+    </EntitySet>
     <EntitySet Name="GenelTutar" EntityType="Self.GenelTutar" store:Type="Views" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [GenelTutar].[MaliyetId] AS [MaliyetId], 
@@ -282,6 +413,34 @@ warning 6013: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a pri
     [ToplamFaaliyetTutar].[FaaliyetAd] AS [FaaliyetAd]
     FROM [dbo].[ToplamFaaliyetTutar] AS [ToplamFaaliyetTutar]</DefiningQuery>
     </EntitySet>
+    <EntitySet Name="ToplamMaliyet" EntityType="Self.ToplamMaliyet" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ToplamMaliyet].[UrunId] AS [UrunId], 
+    [ToplamMaliyet].[UrunAd] AS [UrunAd], 
+    [ToplamMaliyet].[EndirektToplam] AS [EndirektToplam], 
+    [ToplamMaliyet].[Dimmg] AS [Dimmg], 
+    [ToplamMaliyet].[Dig] AS [Dig], 
+    [ToplamMaliyet].[ToplamMaliyet] AS [ToplamMaliyet], 
+    [ToplamMaliyet].[BirimDagitimOlcu] AS [BirimDagitimOlcu]
+    FROM [dbo].[ToplamMaliyet] AS [ToplamMaliyet]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="UrunFaaliyetTutar" EntityType="Self.UrunFaaliyetTutar" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [UrunFaaliyetTutar].[UrunAd] AS [UrunAd], 
+    [UrunFaaliyetTutar].[FaaliyetAd] AS [FaaliyetAd], 
+    [UrunFaaliyetTutar].[FaaliyetId] AS [FaaliyetId], 
+    [UrunFaaliyetTutar].[tutar] AS [tutar], 
+    [UrunFaaliyetTutar].[Number] AS [Number]
+    FROM [dbo].[UrunFaaliyetTutar] AS [UrunFaaliyetTutar]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_BirimMaliyet_DagıtımOlcu" Association="Self.FK_BirimMaliyet_DagıtımOlcu">
+      <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
+      <End Role="BirimMaliyet" EntitySet="BirimMaliyet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BirimMaliyet_Urun" Association="Self.FK_BirimMaliyet_Urun">
+      <End Role="Urun" EntitySet="Urun" />
+      <End Role="BirimMaliyet" EntitySet="BirimMaliyet" />
+    </AssociationSet>
     <AssociationSet Name="FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu" Association="Self.FK_DagitimOlcuFaaliyetiliski_DagıtımOlcu">
       <End Role="DagıtımOlcu" EntitySet="DagıtımOlcu" />
       <End Role="DagitimOlcuFaaliyetiliski" EntitySet="DagitimOlcuFaaliyetiliski" />

@@ -29,9 +29,16 @@ namespace Bitirme.Controllers
             }
             else
             {
+                var mukerrerAd = db.Gider.Where(ba => ba.HesapAd == parametre.HesapAd).FirstOrDefault();
+                var mukerrerKod = db.Gider.Where(ba => ba.HesapKodu == parametre.HesapKodu).FirstOrDefault();
+                if (mukerrerAd==null && mukerrerKod==null)
+                {
                 db.Gider.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                }
+                return View();
+                
             }
         }
         public ActionResult Remove(int id)
@@ -48,12 +55,21 @@ namespace Bitirme.Controllers
         }
         public ActionResult Edit(Gider parametre)
         {
-            var edit = db.Gider.Find(parametre.GiderId);
-            edit.HesapKodu = parametre.HesapKodu;
-            edit.HesapAd = parametre.HesapAd;
-            edit.Tutar = parametre.Tutar;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var mukerrerAd = db.Gider.Where(ba => ba.HesapAd == parametre.HesapAd).FirstOrDefault();
+            var mukerrerKod = db.Gider.Where(ba => ba.HesapKodu == parametre.HesapKodu).FirstOrDefault();
+            if (mukerrerAd == null && mukerrerKod == null)
+            {
+
+                var edit = db.Gider.Find(parametre.GiderId);
+                edit.HesapKodu = parametre.HesapKodu;
+                edit.HesapAd = parametre.HesapAd;
+                edit.Tutar = parametre.Tutar;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            var id = parametre.GiderId;
+            string yolu = "Details/" + id.ToString();
+            return RedirectToAction(yolu);
 
         }
     }
