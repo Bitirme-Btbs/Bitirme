@@ -13,29 +13,29 @@ namespace Bitirme.Controllers
         // GET: Urun
         public ActionResult Index()
         {
-            var urun = db.Urun.ToList();
-            return View(urun);
+            var Uruns = db.Uruns.ToList();
+            return View(Uruns);
         }
         public ActionResult Remove(int id)
         {
-            var remove = db.Urun.Find(id);
-            db.Urun.Remove(remove);
+            var remove = db.Uruns.Find(id);
+            db.Uruns.Remove(remove);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            var edit = db.Urun.Find(id);
+            var edit = db.Uruns.Find(id);
             return View(edit);
         }
         public ActionResult Edit(Urun parametre)
         {
 
-            var mukerrer = db.Urun.Where(ba => ba.UrunAd == parametre.UrunAd).FirstOrDefault();
+            var mukerrer = db.Uruns.Where(ba => ba.UrunAd == parametre.UrunAd).FirstOrDefault();
             if (mukerrer == null)
             {
-                var urunum = db.Urun.Find(parametre.UrunId);
-                urunum.UrunAd = parametre.UrunAd;
+                var Urunum = db.Uruns.Find(parametre.UrunId);
+                Urunum.UrunAd = parametre.UrunAd;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -59,10 +59,10 @@ namespace Bitirme.Controllers
             }
             else
             {
-                var mukerrer = db.Urun.Where(ba => ba.UrunAd == parametre.UrunAd).FirstOrDefault();
+                var mukerrer = db.Uruns.Where(ba => ba.UrunAd == parametre.UrunAd).FirstOrDefault();
                 if (mukerrer==null)
                 {
-                    db.Urun.Add(parametre);
+                    db.Uruns.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
 

@@ -76,6 +76,16 @@
     <Property Name="DagitimOlcuId" Type="int" />
     <Property Name="UrunDagitimAdet" Type="decimal" Precision="18" Scale="3" />
   </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="TblBirimMaliyetTutar">
     <Key>
       <PropertyRef Name="BMT_ID" />
@@ -212,6 +222,7 @@ warning 6002: The table/view 'Bitirme.dbo.ToplamMaliyet' does not have a primary
     <Property Name="Dig" Type="decimal" Precision="18" Scale="2" />
     <Property Name="ToplamMaliyet" Type="decimal" Precision="20" Scale="2" />
     <Property Name="BirimDagitimOlcu" Type="int" />
+    <Property Name="Urun_ID" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -333,6 +344,7 @@ warning 6002: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a pri
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="BirimMaliyetSP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ProductPrice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SPBirimMaliyetTutar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SPToplamMaliyet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -346,6 +358,7 @@ warning 6002: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a pri
     <EntitySet Name="Maliyet" EntityType="Self.Maliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MaliyetEndirektUretim" EntityType="Self.MaliyetEndirektUretim" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MaliyetUrun" EntityType="Self.MaliyetUrun" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblBirimMaliyetTutar" EntityType="Self.TblBirimMaliyetTutar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TblToplamMaliyet" EntityType="Self.TblToplamMaliyet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TutarUrunFaaliyet" EntityType="Self.TutarUrunFaaliyet" Schema="dbo" store:Type="Tables" />
@@ -421,7 +434,8 @@ warning 6002: The table/view 'Bitirme.dbo.UrunFaaliyetTutar' does not have a pri
     [ToplamMaliyet].[Dimmg] AS [Dimmg], 
     [ToplamMaliyet].[Dig] AS [Dig], 
     [ToplamMaliyet].[ToplamMaliyet] AS [ToplamMaliyet], 
-    [ToplamMaliyet].[BirimDagitimOlcu] AS [BirimDagitimOlcu]
+    [ToplamMaliyet].[BirimDagitimOlcu] AS [BirimDagitimOlcu], 
+    [ToplamMaliyet].[Urun_ID] AS [Urun_ID]
     FROM [dbo].[ToplamMaliyet] AS [ToplamMaliyet]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="UrunFaaliyetTutar" EntityType="Self.UrunFaaliyetTutar" store:Type="Views" store:Schema="dbo">

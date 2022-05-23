@@ -12,7 +12,7 @@ namespace Bitirme.Controllers
         // GET: UrunFaaliyetTutar
         public ActionResult Index()
         {
-            var a = db.ProductPrice1();
+            var a = db.ProductPrice();
 
             return View(a);
         }

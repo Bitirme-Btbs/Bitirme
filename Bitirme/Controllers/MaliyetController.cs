@@ -13,13 +13,13 @@ namespace Bitirme.Controllers
         // GET: Maliyet
         public ActionResult Index()
         {
-            var maliyet = db.Maliyet.ToList();
+            var maliyet = db.Maliyets.ToList();
             return View(maliyet);
         }
         [HttpGet]
         public ActionResult Create()
         {
-            List<SelectListItem> M_Gider = (from i in db.Gider.ToList()
+            List<SelectListItem> M_Gider = (from i in db.Giders.ToList()
                                             select new SelectListItem
                                             {
                                         
@@ -32,8 +32,8 @@ namespace Bitirme.Controllers
                 Value = "0",
                 Text = "-- Lütfen Seçiniz --"
             });
-            ViewBag.Mgider = M_Gider;
-            List<SelectListItem> M_Faaliyet = (from i in db.Faaliyet.ToList()
+            ViewBag.MGider = M_Gider;
+            List<SelectListItem> M_Faaliyet = (from i in db.Faaliyets.ToList()
                                                select new SelectListItem
                                                {
                                                    Text = i.FaaliyetAd,
@@ -47,7 +47,7 @@ namespace Bitirme.Controllers
             });
             ViewBag.Mfaaliyet = M_Faaliyet;
 
-            List<SelectListItem> M_KaynakMaliyetEtken = (from i in db.KaynakMaliyetEtken.ToList()
+            List<SelectListItem> M_KaynakMaliyetEtken = (from i in db.KaynakMaliyetEtkens.ToList()
                                                          select new SelectListItem
                                                          {
                                                              Text = i.KMEAd,
@@ -75,7 +75,7 @@ namespace Bitirme.Controllers
             {
                
 
-                    List<SelectListItem> M_Gider = (from i in db.Gider.ToList()
+                    List<SelectListItem> M_Gider = (from i in db.Giders.ToList()
                                                 select new SelectListItem
                                                 {
 
@@ -84,8 +84,8 @@ namespace Bitirme.Controllers
                                                 }
                                            ).ToList();
               
-                ViewData["Mgider"] = M_Gider;
-                List<SelectListItem> M_Faaliyet = (from i in db.Faaliyet.ToList()
+                ViewData["MGider"] = M_Gider;
+                List<SelectListItem> M_Faaliyet = (from i in db.Faaliyets.ToList()
                                                    select new SelectListItem
                                                    {
                                                        Text = i.FaaliyetAd,
@@ -95,7 +95,7 @@ namespace Bitirme.Controllers
 
                 ViewData["Mfaaliyet"] = M_Faaliyet;
 
-                List<SelectListItem> M_KaynakMaliyetEtken = (from i in db.KaynakMaliyetEtken.ToList()
+                List<SelectListItem> M_KaynakMaliyetEtken = (from i in db.KaynakMaliyetEtkens.ToList()
                                                              select new SelectListItem
                                                              {
                                                                  Text = i.KMEAd,
@@ -106,20 +106,20 @@ namespace Bitirme.Controllers
                 ViewData["Mkme"] = M_KaynakMaliyetEtken;
 
 
-                var mukerrer = db.Maliyet.Where(ba => ba.GiderId == parametre.Gider.GiderId && ba.FaaliyetId==parametre.Faaliyet.FaaliyetId && ba.KMEId==parametre.KaynakMaliyetEtken.KMEId && ba.Onay.ToString()==parametre.Onay.ToString()).FirstOrDefault();
+                var mukerrer = db.Maliyets.Where(ba => ba.GiderId == parametre.Gider.GiderId && ba.FaaliyetId==parametre.Faaliyet.FaaliyetId && ba.KMEId==parametre.KaynakMaliyetEtken.KMEId && ba.Onay.ToString()==parametre.Onay.ToString()).FirstOrDefault();
                 if (mukerrer == null)
                 {
 
-                    var gider = db.Gider.Where(ba => ba.GiderId == parametre.Gider.GiderId).FirstOrDefault();
-                    parametre.Gider = gider;
+                    var Gider = db.Giders.Where(ba => ba.GiderId == parametre.Gider.GiderId).FirstOrDefault();
+                    parametre.Gider = Gider;
 
-                    var faaliyet = db.Faaliyet.Where(ba => ba.FaaliyetId == parametre.Faaliyet.FaaliyetId).FirstOrDefault();
+                    var faaliyet = db.Faaliyets.Where(ba => ba.FaaliyetId == parametre.Faaliyet.FaaliyetId).FirstOrDefault();
                     parametre.Faaliyet = faaliyet;
 
-                    var kme = db.KaynakMaliyetEtken.Where(ba => ba.KMEId == parametre.KaynakMaliyetEtken.KMEId).FirstOrDefault();
+                    var kme = db.KaynakMaliyetEtkens.Where(ba => ba.KMEId == parametre.KaynakMaliyetEtken.KMEId).FirstOrDefault();
                     parametre.KaynakMaliyetEtken = kme;
 
-                    db.Maliyet.Add(parametre);
+                    db.Maliyets.Add(parametre);
                     db.SaveChanges();
 
                     return RedirectToAction("Index");
@@ -131,23 +131,23 @@ namespace Bitirme.Controllers
         }
         public ActionResult Remove(int id)
         {
-            var maliyet = db.Maliyet.Find(id);
-            db.Maliyet.Remove(maliyet);
+            var maliyet = db.Maliyets.Find(id);
+            db.Maliyets.Remove(maliyet);
 
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            List<SelectListItem> M_Gider = (from i in db.Gider.ToList()
+            List<SelectListItem> M_Gider = (from i in db.Giders.ToList()
                                             select new SelectListItem
                                             {
                                                 Text = i.HesapKodu + " " + i.HesapAd,
                                                 Value = i.GiderId.ToString(),
                                             }
                                           ).ToList();
-            ViewBag.Mgider = M_Gider;
-            List<SelectListItem> M_Faaliyet = (from i in db.Faaliyet.ToList()
+            ViewBag.MGider = M_Gider;
+            List<SelectListItem> M_Faaliyet = (from i in db.Faaliyets.ToList()
                                                select new SelectListItem
                                                {
                                                    Text = i.FaaliyetAd,
@@ -156,7 +156,7 @@ namespace Bitirme.Controllers
                                              ).ToList();
             ViewBag.Mfaaliyet = M_Faaliyet;
 
-            List<SelectListItem> M_KaynakMaliyetEtken = (from i in db.KaynakMaliyetEtken.ToList()
+            List<SelectListItem> M_KaynakMaliyetEtken = (from i in db.KaynakMaliyetEtkens.ToList()
                                                          select new SelectListItem
                                                          {
                                                              Text = i.KMEAd,
@@ -164,27 +164,27 @@ namespace Bitirme.Controllers
                                                          }
                                                         ).ToList();
             ViewBag.Mkme = M_KaynakMaliyetEtken;
-            var maliyet=db.Maliyet.Find(id);
+            var maliyet=db.Maliyets.Find(id);
             return View(maliyet);
 
         }
         public ActionResult Edit(Maliyet parametre)
         {
-            var mukerrer = db.Maliyet.Where(ba => ba.GiderId == parametre.Gider.GiderId && ba.FaaliyetId == parametre.Faaliyet.FaaliyetId && ba.KMEId == parametre.KaynakMaliyetEtken.KMEId && ba.Onay.ToString() == parametre.Onay.ToString()).FirstOrDefault();
+            var mukerrer = db.Maliyets.Where(ba => ba.GiderId == parametre.Gider.GiderId && ba.FaaliyetId == parametre.Faaliyet.FaaliyetId && ba.KMEId == parametre.KaynakMaliyetEtken.KMEId && ba.Onay.ToString() == parametre.Onay.ToString()).FirstOrDefault();
             if (mukerrer == null)
             {
 
-                var m = db.Maliyet.Find(parametre.MaliyetId);
+                var m = db.Maliyets.Find(parametre.MaliyetId);
 
                 m.Adet = parametre.Adet;
 
-                var mgider = db.Gider.Where(ba => ba.GiderId == parametre.Gider.GiderId).FirstOrDefault();
-                m.GiderId = mgider.GiderId;
+                var mGider = db.Giders.Where(ba => ba.GiderId == parametre.Gider.GiderId).FirstOrDefault();
+                m.GiderId = mGider.GiderId;
 
-                var mfaaliyet = db.Faaliyet.Where(ba => ba.FaaliyetId == parametre.Faaliyet.FaaliyetId).FirstOrDefault();
+                var mfaaliyet = db.Faaliyets.Where(ba => ba.FaaliyetId == parametre.Faaliyet.FaaliyetId).FirstOrDefault();
                 m.FaaliyetId = mfaaliyet.FaaliyetId;
 
-                var mKaynakMaliyetEtken = db.KaynakMaliyetEtken.Where(ba => ba.KMEId == parametre.KaynakMaliyetEtken.KMEId).FirstOrDefault();
+                var mKaynakMaliyetEtken = db.KaynakMaliyetEtkens.Where(ba => ba.KMEId == parametre.KaynakMaliyetEtken.KMEId).FirstOrDefault();
                 m.KMEId = mKaynakMaliyetEtken.KMEId;
 
                 db.SaveChanges();

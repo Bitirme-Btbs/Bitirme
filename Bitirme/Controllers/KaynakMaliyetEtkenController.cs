@@ -13,7 +13,7 @@ namespace Bitirme.Controllers
         // GET: KaynakMaliyetEtken
         public ActionResult Index()
         {
-            var KME = db.KaynakMaliyetEtken.ToList();
+            var KME = db.KaynakMaliyetEtkens.ToList();
             return View(KME);
         }
         [HttpGet]
@@ -30,10 +30,10 @@ namespace Bitirme.Controllers
             }
             else
             {
-                var mukerrer = db.KaynakMaliyetEtken.Where(ba => ba.KMEAd == parametre.KMEAd).FirstOrDefault();
+                var mukerrer = db.KaynakMaliyetEtkens.Where(ba => ba.KMEAd == parametre.KMEAd).FirstOrDefault();
                 if (mukerrer==null)
                 {
-                 db.KaynakMaliyetEtken.Add(parametre);
+                 db.KaynakMaliyetEtkens.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
                 }
@@ -42,22 +42,22 @@ namespace Bitirme.Controllers
         }
         public ActionResult Remove(int id)
         {
-            var remove = db.KaynakMaliyetEtken.Find(id);
-            db.KaynakMaliyetEtken.Remove(remove);
+            var remove = db.KaynakMaliyetEtkens.Find(id);
+            db.KaynakMaliyetEtkens.Remove(remove);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            var details = db.KaynakMaliyetEtken.Find(id);
+            var details = db.KaynakMaliyetEtkens.Find(id);
             return View(details);
         }
         public ActionResult Edit(KaynakMaliyetEtken parametre)
         {
-            var mukerrer = db.KaynakMaliyetEtken.Where(ba => ba.KMEAd == parametre.KMEAd).FirstOrDefault();
+            var mukerrer = db.KaynakMaliyetEtkens.Where(ba => ba.KMEAd == parametre.KMEAd).FirstOrDefault();
             if (mukerrer==null)
             {
-            var edit = db.KaynakMaliyetEtken.Find(parametre.KMEId);
+            var edit = db.KaynakMaliyetEtkens.Find(parametre.KMEId);
             edit.KMEAd = parametre.KMEAd;
             db.SaveChanges();
             return RedirectToAction("Index");

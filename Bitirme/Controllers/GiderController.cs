@@ -12,8 +12,8 @@ namespace Bitirme.Controllers
         // GET: Gider
         public ActionResult Index()
         {
-            var gider = db.Gider.ToList();
-            return View(gider);
+            var Gider = db.Giders.ToList();
+            return View(Gider);
         }
         [HttpGet]
         public ActionResult Create()
@@ -29,11 +29,11 @@ namespace Bitirme.Controllers
             }
             else
             {
-                var mukerrerAd = db.Gider.Where(ba => ba.HesapAd == parametre.HesapAd).FirstOrDefault();
-                var mukerrerKod = db.Gider.Where(ba => ba.HesapKodu == parametre.HesapKodu).FirstOrDefault();
+                var mukerrerAd = db.Giders.Where(ba => ba.HesapAd == parametre.HesapAd).FirstOrDefault();
+                var mukerrerKod = db.Giders.Where(ba => ba.HesapKodu == parametre.HesapKodu).FirstOrDefault();
                 if (mukerrerAd==null && mukerrerKod==null)
                 {
-                db.Gider.Add(parametre);
+                db.Giders.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
                 }
@@ -43,24 +43,24 @@ namespace Bitirme.Controllers
         }
         public ActionResult Remove(int id)
         {
-            var remove = db.Gider.Find(id);
-            db.Gider.Remove(remove);
+            var remove = db.Giders.Find(id);
+            db.Giders.Remove(remove);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            var details = db.Gider.Find(id);
+            var details = db.Giders.Find(id);
             return View(details);
         }
         public ActionResult Edit(Gider parametre)
         {
-            var mukerrerAd = db.Gider.Where(ba => ba.HesapAd == parametre.HesapAd).FirstOrDefault();
-            var mukerrerKod = db.Gider.Where(ba => ba.HesapKodu == parametre.HesapKodu).FirstOrDefault();
+            var mukerrerAd = db.Giders.Where(ba => ba.HesapAd == parametre.HesapAd).FirstOrDefault();
+            var mukerrerKod = db.Giders.Where(ba => ba.HesapKodu == parametre.HesapKodu).FirstOrDefault();
             if (mukerrerAd == null && mukerrerKod == null)
             {
 
-                var edit = db.Gider.Find(parametre.GiderId);
+                var edit = db.Giders.Find(parametre.GiderId);
                 edit.HesapKodu = parametre.HesapKodu;
                 edit.HesapAd = parametre.HesapAd;
                 edit.Tutar = parametre.Tutar;

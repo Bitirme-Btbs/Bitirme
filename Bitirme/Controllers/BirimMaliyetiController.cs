@@ -13,7 +13,7 @@ namespace Bitirme.Controllers
         BitirmeEntities db = new BitirmeEntities();
         public ActionResult Index()
         {
-            var objects = db.BirimMaliyet.ToList();
+            var objects = db.BirimMaliyets.ToList();
             return View(objects);
         }
         public ActionResult ToplamMaliyet()
@@ -23,14 +23,14 @@ namespace Bitirme.Controllers
         }
         public ActionResult BirimMaliyetTutar()
         {
-            var ba = db.SPBirimMaliyetTutar1();
+            var ba = db.BirimMaliyetSP1();
             return View(ba);
         }
         [HttpGet]
         public ActionResult Create()
         {
             
-            List<SelectListItem> urun = (from i in db.Urun.ToList()
+            List<SelectListItem> urun = (from i in db.Uruns.ToList()
                                          select new SelectListItem
                                          {
                                              Text = i.UrunAd,
@@ -67,31 +67,31 @@ namespace Bitirme.Controllers
             }
             else
             {
-            
-                db.BirimMaliyet.Add(parametre);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                    db.BirimMaliyets.Add(parametre);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");      
             }
 
 
         }
         public ActionResult Remove(int id)
         {
-            var remove = db.BirimMaliyet.Find(id);
-            db.BirimMaliyet.Remove(remove);
+            var remove = db.BirimMaliyets.Find(id);
+            db.BirimMaliyets.Remove(remove);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
         public ActionResult Details(int id)
         {
-            List<SelectListItem> urun = (from i in db.Urun.ToList()
+
+            List<SelectListItem> urun = (from i in db.Uruns.ToList()
                                          select new SelectListItem
                                          {
                                              Text = i.UrunAd,
                                              Value = i.UrunId.ToString(),
                                          }
-                                        ).ToList();
+                                         ).ToList();
             urun.Insert(0, new SelectListItem()
             {
                 Value = "0",
@@ -111,22 +111,30 @@ namespace Bitirme.Controllers
             });
             ViewBag.Dagitim = dagitim;
             ViewBag.Urunler = urun;
-            var ba = db.BirimMaliyet.Find(id);
-            return View(ba);
 
+            var data = db.BirimMaliyets.Find(id);
+            return View(data);
         }
         public ActionResult Edit(BirimMaliyet parametre)
         {
-            var edit = db.BirimMaliyet.Find(parametre.BM_Id);
-
            
 
-            var bmo = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Id == parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
-            edit.BirimDagitimOlcu = bmo.DagıtımOlcu_Id;
+                var m = db.BirimMaliyets.Find(parametre.BM_Id);
+
+                m.Dimmg = parametre.Dimmg;
+                m.Dig = parametre.Dig;
+
+                var m_urun = db.Uruns.Where(ba => ba.UrunId == parametre.Urun.UrunId).FirstOrDefault();
+                m.Urun_ID = m_urun.UrunId;
+
+            var dd = db.DagıtımOlcu.Where(ba => ba.DagıtımOlcu_Id == parametre.DagıtımOlcu.DagıtımOlcu_Id).FirstOrDefault();
+            m.BirimDagitimOlcu = dd.DagıtımOlcu_Id;
 
             db.SaveChanges();
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+           
         }
+
 
     }
 

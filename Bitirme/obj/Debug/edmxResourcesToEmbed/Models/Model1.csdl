@@ -92,6 +92,16 @@
     <NavigationProperty Name="DagıtımOlcu" Relationship="Self.FK_MaliyetUrun_DagıtımOlcu" FromRole="MaliyetUrun" ToRole="DagıtımOlcu" />
     <NavigationProperty Name="Urun" Relationship="Self.FK_MaliyetUrun_Urun" FromRole="MaliyetUrun" ToRole="Urun" />
   </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
   <EntityType Name="TblBirimMaliyetTutar">
     <Key>
       <PropertyRef Name="BMT_ID" />
@@ -216,6 +226,7 @@
     <Property Name="Dig" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="ToplamMaliyet1" Type="Decimal" Precision="20" Scale="2" />
     <Property Name="BirimDagitimOlcu" Type="Int32" />
+    <Property Name="Urun_ID" Type="Int32" />
   </EntityType>
   <EntityType Name="UrunFaaliyetTutar">
     <Key>
@@ -345,6 +356,7 @@
     <EntitySet Name="Maliyets" EntityType="Self.Maliyet" />
     <EntitySet Name="MaliyetEndirektUretims" EntityType="Self.MaliyetEndirektUretim" />
     <EntitySet Name="MaliyetUruns" EntityType="Self.MaliyetUrun" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TblBirimMaliyetTutars" EntityType="Self.TblBirimMaliyetTutar" />
     <EntitySet Name="TblToplamMaliyets" EntityType="Self.TblToplamMaliyet" />
     <EntitySet Name="TutarUrunFaaliyets" EntityType="Self.TutarUrunFaaliyet" />
@@ -396,12 +408,25 @@
     <FunctionImport Name="ProductPrice" ReturnType="Collection(BitirmeModel.ProductPrice_Result)" />
     <FunctionImport Name="SPBirimMaliyetTutar" />
     <FunctionImport Name="SPToplamMaliyet" />
-    <FunctionImport Name="ProductPrice1" ReturnType="Collection(BitirmeModel.ProductPrice_Result)" />
+    <FunctionImport Name="SPBirimMaliyetTutar1" />
+    <FunctionImport Name="SPBirimMaliyetTutar2" />
+    <FunctionImport Name="SPBirimMaliyetTutar3" />
+    <FunctionImport Name="BirimMaliyetSP" ReturnType="Collection(BitirmeModel.BirimMaliyetSP_Result)" />
+    <FunctionImport Name="BirimMaliyetSP1" ReturnType="Collection(BitirmeModel.BirimMaliyetSP_Result)" />
   </EntityContainer>
   <ComplexType Name="ProductPrice_Result">
     <Property Type="Int32" Name="TUF_ID" Nullable="false" />
     <Property Type="String" Name="Urun" Nullable="true" />
     <Property Type="String" Name="Faaliyet" Nullable="true" />
     <Property Type="Decimal" Name="TutarTUF" Nullable="true" Precision="18" Scale="5" />
+  </ComplexType>
+  <ComplexType Name="BirimMaliyetSP_Result">
+    <Property Type="Int32" Name="BMT_ID" Nullable="false" />
+    <Property Type="String" Name="Urunler" Nullable="true" />
+    <Property Type="Decimal" Name="EndirekUM" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Dimmg" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Dig" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="ToplamMaliyet" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="BirimMaliyet" Nullable="true" Precision="18" Scale="2" />
   </ComplexType>
 </Schema>

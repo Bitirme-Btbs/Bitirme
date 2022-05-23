@@ -13,7 +13,7 @@ namespace Bitirme.Controllers
         // GET: Faaliyet
         public ActionResult Index()
         {
-            var Faaliyet = db.Faaliyet.ToList();
+            var Faaliyet = db.Faaliyets.ToList();
             return View(Faaliyet);
         }
         [HttpGet]
@@ -30,10 +30,10 @@ namespace Bitirme.Controllers
             }
             else
             {
-                var mukerrer = db.Faaliyet.Where(ba => ba.FaaliyetAd == parametre.FaaliyetAd).FirstOrDefault();
+                var mukerrer = db.Faaliyets.Where(ba => ba.FaaliyetAd == parametre.FaaliyetAd).FirstOrDefault();
                 if (mukerrer==null)
                 {
-                db.Faaliyet.Add(parametre);
+                db.Faaliyets.Add(parametre);
                 db.SaveChanges();
                 return RedirectToAction("Index");
                 }
@@ -44,22 +44,22 @@ namespace Bitirme.Controllers
         }
         public ActionResult Remove(int id) 
         {
-            var remove = db.Faaliyet.Find(id);
-            db.Faaliyet.Remove(remove);
+            var remove = db.Faaliyets.Find(id);
+            db.Faaliyets.Remove(remove);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            var edit = db.Faaliyet.Find(id);
+            var edit = db.Faaliyets.Find(id);
             return View(edit);
         }
         public ActionResult Edit(Faaliyet parametre)
         {
-            var mukerrer = db.Faaliyet.Where(ba => ba.FaaliyetAd == parametre.FaaliyetAd).FirstOrDefault();
+            var mukerrer = db.Faaliyets.Where(ba => ba.FaaliyetAd == parametre.FaaliyetAd).FirstOrDefault();
             if (mukerrer == null)
             {
-                var faaliyetdeger = db.Faaliyet.Find(parametre.FaaliyetId);
+                var faaliyetdeger = db.Faaliyets.Find(parametre.FaaliyetId);
                 faaliyetdeger.FaaliyetAd = parametre.FaaliyetAd;
                 db.SaveChanges();
                 return RedirectToAction("Index");

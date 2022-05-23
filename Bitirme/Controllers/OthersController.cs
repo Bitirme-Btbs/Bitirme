@@ -12,26 +12,26 @@ namespace Bitirme.Controllers
         // GET: ORANvTUTAR
         public ActionResult Oran()
         {
-            var oran = db.Oran.ToList();
+            var oran = db.Orans.ToList();
             return View(oran);
         }
 
         //FaaliyetMaliyet
         public ActionResult Tutar()
         {
-            var tutar = db.GenelTutar.ToList();
+            var tutar = db.GenelTutars.ToList();
             return View(tutar);
         }
 
        
         public ActionResult FaaliyetToplam()
         {
-            var ft = db.ToplamFaaliyetTutar.ToList();
+            var ft = db.ToplamFaaliyetTutars.ToList();
             return View(ft);
         }
         public ActionResult Endirekt()
         {
-            var endirekt = db.EndirektUretimMaliyeti.ToList();
+            var endirekt = db.EndirektUretimMaliyetis.ToList();
             return View(endirekt);
         }
 
